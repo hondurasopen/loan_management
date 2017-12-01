@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+<template id="report_facturas_open_view_document">
+<t t-call="report.external_layout">
+<t t-foreach="docs" t-as="o">
+   <div class="page">
+	      <div class="row">
+			<div class="col-xs-5 col-xs-offset-7">
+                           <h4><span t-field="o.name"/></h4>
+                        </div>
+	       </div> 	   
+		 <p><strong>
+                        Documento: Estado de cuenta del cliente</strong><br/>
+                    </p>
+		<br/>
+		  <p>	
+                         Estimado/a señor/señora, Nuestros registros indican que algunos pagos en nuestra cuenta están aún pendientes.         				 Puede encontrar los detalles a continuación. Si la cantidad ha sido ya pagada, por favor, descarte esta notificación. 				 En otro caso, por favor remítanos el importe total abajo indicado. Si tiene alguna pregunta con respecto a su cuenta, 				 por favor contáctenos. Gracias de antemano por su colaboración. Saludos cordiales
+			</p>
+                        <table class="table table-condensed" style="margin-top: 50px;">
+                            <thead>
+                                <tr>
+				    <th>No. Factura</th>	
+                                    <th>Fecha de factura</th>
+                                    <th>Fecha de Vencimiento</th>
+				    <th>Referencia</th>	
+				    <th class="text-center">Total de factura</th>
+					    <th class="text-center">Importe Abonado</th>
+             
+                                    <th class="text-center">Saldo pendiente</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr t-foreach="o.facturas_ids" t-as="a">
+				     <td><span t-field="a.number"/></td>	
+                                    <td><span t-field="a.date_invoice"/></td>
+				    <td><span t-field="a.date_due"/></td>
+				    <td><span t-field="a.name"/></td>
+				    <td class="text-center"><span t-field="a.amount_total"/></td>
+				    <td class="text-center"><span t-field="a.importe_abonado"/></td>
+				    <td class="text-center"><span t-field="a.residual"/></td>
+			
+                                </tr>
+                            </tbody>
+                        </table>
+			<p>Total Adeudado: <span t-field="o.monto_adeudado"/> LPS</p>   
+                   
+   </div> 
+      <!-- Esta etiqueta del footer es la que no funciona -->
+</t>
+</t>
+</template>
+
+<template id="report_contract_view">
+        <t t-call="report.html_container">
+            <t t-foreach="docs" t-as="doc">
+            <t t-raw="translate_doc(doc_id, doc_model,'partner_id.lang','partner_invoice.report_facturas_open_view_document')"/>
+            </t>
+        </t>
+</template>
+</data>
+</openerp>

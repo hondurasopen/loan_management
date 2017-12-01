@@ -1,0 +1,1523 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* loan_management
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-08-23 05:56+0000\n"
+"PO-Revision-Date: 2017-08-23 05:56+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: loan_management
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_loan_fee_numero_fee
+#: model:ir.model.fields,field_description:loan_management.field_loan_pagos_fees_numero_fee
+#: model:ir.model.fields,field_description:loan_management.field_loan_wizard_payment_lines_numero_fee
+msgid "# fee"
+msgstr "# fee"
+
+#. module: loan_management
+#: model:ir.ui.view,arch_db:loan_management.wizard_set_payment_loans
+msgid "<strong>NO EXISTE SALDOS PENDIENTES REALIZARÁ ABONO(S) A CAPITAL.</strong>"
+msgstr "<strong>THERE ARE NO PENDING BALANCES. WIL YOU MAKE PAYMENT TO CAPITAL?</strong>"
+
+#. module: loan_management
+#: model:ir.ui.view,arch_db:loan_management.wizard_generar_status_fees
+msgid "<strong>Se generarán la cartera de fees de loans a cobrar, este se debe de realizar diariamente.</strong>"
+msgstr "<strong>The portfolio of installments receivable is generated, this must be done daily.</strong>"
+
+#. module: loan_management
+#: model:ir.model.fields,field_description:loan_management.field_loan_pagos_fees
+msgid "Abono a fee(s)"
+msgstr "Payment of Quota(s)"
+
+#. module: loan_management
+#: model:res.groups,name:loan_management.group_aportaciones_loan
+msgid "Acceso a aportaciones"
+msgstr "Access to contributions"
+
+#. module: loan_management
+#: model:res.groups,name:loan_management.group_configuration
+msgid "Acceso a configuración"
+msgstr "Access configuration"
+
+#. module: loan_management
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_loan_interes_active
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_loan_plazo_active
+msgid "Activo"
+msgstr "Active"
+
+#. module: loan_management
+#: model:ir.ui.view,arch_db:loan_management.loan_management_loan_form_view
+msgid "Adelantar fee"
+msgstr "Advance Quota"
+
+#. module: loan_management
+#: model:res.groups,name:loan_management.group_adelantar_fees
+msgid "Adelantar fees"
+msgstr "Advance Quotas"
+
+#. module: loan_management
+#: model:ir.ui.view,arch_db:loan_management.loan_management_loan_search
+msgid "Agrupado por"
+msgstr "Grouped by"
+
+#. module: loan_management
+#: selection:loan.aportaciones,tipo_aportacion:0
+msgid "Ahorro"
+msgstr "Saving"
+
+#. module: loan_management
+#: model:ir.model.fields,field_description:loan_management.field_res_partner_total_ahorros
+msgid "Ahorros"
+msgstr "Savings"
+
+#. module: loan_management
+#: selection:loan.management.loan.interes,capitalizable:0
+msgid "Anual"
+msgstr "Anual"
+
+#. module: loan_management
+#: model:ir.model.fields,field_description:loan_management.field_res_partner_total_aportaciones
+#: model:ir.ui.view,arch_db:loan_management.mapia_management_cliente_form
+#: model:ir.ui.view,arch_db:loan_management.view_aportaciones_calendar
+msgid "Aportaciones"
+msgstr "Contributions"
+
+#. module: loan_management
+#: model:ir.ui.menu,name:loan_management.loan_aportaciones_management
+msgid "Aportaciones y Retiros"
+msgstr "Contributions and Withdrawals"
+
+#. module: loan_management
+#: selection:loan.aportaciones,tipo_aportacion:0
+msgid "Aportación"
+msgstr "Share"
+
+#. module: loan_management
+#: selection:loan.management.loan,state:0
+msgid "Aprobado"
+msgstr "Approved"
+
+#. module: loan_management
+#: model:res.groups,name:loan_management.group_aprobar_loans
+msgid "Aprobar loans"
+msgstr "Approve Loans"
+
+#. module: loan_management
+#: model:ir.ui.view,arch_db:loan_management.loan_management_loan_form_view
+msgid "Aprobar loan"
+msgstr "Approve Loan"
+
+#. module: loan_management
+#: model:ir.model.fields,field_description:loan_management.field_loan_aportaciones_move_id
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_loan_move_id
+#: model:ir.model.fields,field_description:loan_management.field_loan_pagos_asiento_id
+msgid "Asiento Contable"
+msgstr "Accounting Entry"
+
+#. module: loan_management
+#: model:ir.model,name:loan_management.model_loan_wizard_payment
+msgid "Asistente de Pagos"
+msgstr "Payment Wizard"
+
+#. module: loan_management
+#: model:ir.model,name:loan_management.model_loan_wizard_generar_fees
+msgid "Asistente de Status de fees"
+msgstr "Status of Contributions Wizard"
+
+#. module: loan_management
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_loan_journal_id
+msgid "Banco"
+msgstr "Bank"
+
+#. module: loan_management
+#: selection:loan.aportaciones,state:0
+#: selection:loan.pagos,state:0
+#: selection:loan.wizard.payment,state:0
+msgid "Borrador"
+msgstr "Draft"
+
+#. module: loan_management
+#: model:ir.ui.view,arch_db:loan_management.loan_management_loan_search
+msgid "Buscar"
+msgstr "Search"
+
+#. module: loan_management
+#: model:ir.ui.view,arch_db:loan_management.loan_management_loan_search
+msgid "Buscar por Cliente"
+msgstr "Search by Customer"
+
+#. module: loan_management
+#: model:ir.ui.view,arch_db:loan_management.loan_management_loan_search
+msgid "Buscar por fecha de solicitud"
+msgstr "Search by request date"
+
+#. module: loan_management
+#: model:ir.ui.view,arch_db:loan_management.loan_management_loan_form_view
+msgid "Calcular plan de pago"
+msgstr "Calculate payment plan"
+
+#. module: loan_management
+#: model:ir.ui.view,arch_db:loan_management.wizard_set_payment_loans
+msgid "Cambiar a Borrador"
+msgstr "Change to Draft"
+
+#. module: loan_management
+#: model:ir.ui.view,arch_db:loan_management.wizard_generar_status_fees
+msgid "Cancel"
+msgstr "Cancel"
+
+#. module: loan_management
+#: selection:loan.aportaciones,state:0
+#: selection:loan.management.loan.fee,state:0
+#: selection:loan.wizard.payment.lines,state:0
+msgid "Cancelada"
+msgstr "Canceled"
+
+#. module: loan_management
+#: selection:loan.pagos,state:0
+#: selection:loan.wizard.payment,state:0
+msgid "Cancelado"
+msgstr "Canceled"
+
+#. module: loan_management
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_loan_fee_capital
+msgid "Capital"
+msgstr "Capital"
+
+#. module: loan_management
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_loan_interes_capitalizable
+msgid "Capitalizable"
+msgstr "Capitalizable"
+
+#. module: loan_management
+#: model:ir.model.fields,field_description:loan_management.field_loan_aportaciones_cliente_id
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_loan_afiliado_id
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_loan_fee_afiliado_id
+#: model:ir.model.fields,field_description:loan_management.field_loan_pagos_cliente_id
+#: model:ir.ui.view,arch_db:loan_management.loan_management_loan_search
+msgid "Cliente"
+msgstr "Customer"
+
+#. module: loan_management
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_loan_monto_comision
+msgid "Comisión bancaria"
+msgstr "Bank Commission"
+
+#. module: loan_management
+#: model:ir.ui.menu,name:loan_management.loan_management_configuration
+msgid "Configuracion"
+msgstr "Configuration"
+
+#. module: loan_management
+#: model:ir.ui.view,arch_db:loan_management.loan_management_loan_type_form_view
+msgid "Configuración de cuentas"
+msgstr "Account Settings"
+
+
+
+#. module: loan_management
+#: model:ir.ui.view,arch_db:loan_management.loan_management_loan_type_form_view
+#: model:ir.ui.view,arch_db:loan_management.loan_management_mora_form_view
+msgid "Contabilidad"
+msgstr "Accounting"
+
+#. module: loan_management
+#: model:ir.model.fields,field_description:loan_management.field_loan_wizard_payment_loan_id
+msgid "Contrato de Crédito"
+msgstr "Loan Agreement"
+
+#. module: loan_management
+#: model:ir.ui.view,arch_db:loan_management.loan_management_loan_form_view
+#: selection:loan.management.loan,state:0
+#: selection:loan.management.loan.fee,state:0
+#: selection:loan.wizard.payment.lines,state:0
+msgid "Cotizacion"
+msgstr "Quotation"
+
+#. module: loan_management
+#: model:ir.actions.act_window,help:loan_management.loan_management_loan_fee_mora_action
+#: model:ir.actions.act_window,help:loan_management.loan_management_loan_fee_novigenete_action
+#: model:ir.actions.act_window,help:loan_management.loan_management_loan_fee_vigente_action
+msgid "Crear fees de loan"
+msgstr "Create loan installments"
+
+#. module: loan_management
+#: model:ir.actions.act_window,help:loan_management.loan_management_loan_interes_action
+#: model:ir.actions.act_window,help:loan_management.loan_management_plazo_action
+msgid "Crear primer plazo de pago"
+msgstr "Create first payment term"
+
+#. module: loan_management
+#: model:ir.actions.act_window,help:loan_management.loan_management_loan_type_action
+msgid "Crear primer loan"
+msgstr "Create First Loan"
+
+#. module: loan_management
+#: model:ir.actions.act_window,help:loan_management.loan_management_mora_action
+msgid "Crear primer tasa de mora"
+msgstr "Create first late payment rate"
+
+#. module: loan_management
+#: model:ir.actions.act_window,help:loan_management.loan_management_loan_action
+#: model:ir.actions.act_window,help:loan_management.loan_loan_activos_action
+#: model:ir.actions.act_window,help:loan_management.loan_loan_aprobados_action
+#: model:ir.actions.act_window,help:loan_management.loan_loan_esperando_aprobacion_action
+#: model:ir.actions.act_window,help:loan_management.loan_loan_pagados_action
+#: model:ir.actions.act_window,help:loan_management.loan_loan_rechazado_action
+msgid "Crear primera solicitud de loan"
+msgstr "Create First Loan Application"
+
+#. module: loan_management
+#: model:ir.model.fields,field_description:loan_management.field_loan_aportaciones_create_uid
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_loan_create_uid
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_loan_fee_create_uid
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_loan_interes_create_uid
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_loan_mora_create_uid
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_loan_plazo_create_uid
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_loan_type_create_uid
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_tipo_documento_create_uid
+#: model:ir.model.fields,field_description:loan_management.field_loan_pagos_create_uid
+#: model:ir.model.fields,field_description:loan_management.field_loan_pagos_fees_create_uid
+#: model:ir.model.fields,field_description:loan_management.field_loan_wizard_generar_fees_create_uid
+#: model:ir.model.fields,field_description:loan_management.field_loan_wizard_payment_create_uid
+#: model:ir.model.fields,field_description:loan_management.field_loan_wizard_payment_lines_create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: loan_management
+#: model:ir.model.fields,field_description:loan_management.field_loan_aportaciones_create_date
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_loan_create_date
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_loan_fee_create_date
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_loan_interes_create_date
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_loan_mora_create_date
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_loan_plazo_create_date
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_loan_type_create_date
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_tipo_documento_create_date
+#: model:ir.model.fields,field_description:loan_management.field_loan_pagos_create_date
+#: model:ir.model.fields,field_description:loan_management.field_loan_pagos_fees_create_date
+#: model:ir.model.fields,field_description:loan_management.field_loan_wizard_generar_fees_create_date
+#: model:ir.model.fields,field_description:loan_management.field_loan_wizard_payment_create_date
+#: model:ir.model.fields,field_description:loan_management.field_loan_wizard_payment_lines_create_date
+msgid "Created on"
+msgstr "Creado en"
+
+#. module: loan_management
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_loan_type_cuenta_ingreso
+msgid "Cuenta de Ingresos"
+msgstr "Income Account"
+
+#. module: loan_management
+#: selection:loan.management.loan.type,metodo_calculo:0
+msgid "fee Nivelada"
+msgstr "Level quota"
+
+
+#. module: loan_management
+#: selection:loan.management.loan.type,metodo_calculo:0
+msgid "fee Plana"
+msgstr "Fixed Loan"
+
+#. module: loan_management
+#: model:ir.ui.view,arch_db:loan_management.wizard_set_payment_loans
+msgid "fee a pagar"
+msgstr "Quota to pay"
+
+#. module: loan_management
+#: model:ir.ui.menu,name:loan_management.loan_fee_management
+msgid "fee de loans"
+msgstr "Loan Fees"
+
+#. module: loan_management
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_loan_cuato_loan
+msgid "fee de loan"
+msgstr "Loan Fee"
+
+#. module: loan_management
+#: model:ir.model.fields,field_description:loan_management.field_loan_wizard_payment_fees_ids
+msgid "fees a pagar"
+msgstr "Fees payable"
+
+#. module: loan_management
+#: model:ir.ui.view,arch_db:loan_management.loan_management_loan_aportacion_form_view
+#: model:ir.ui.view,arch_db:loan_management.loan_management_loan_fee_form_view
+#: model:ir.ui.view,arch_db:loan_management.wizard_generar_status_fees
+#: model:ir.ui.view,arch_db:loan_management.wizard_set_payment_loans
+msgid "fees de loan"
+msgstr "fees de loan"
+
+#. module: loan_management
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_loan_fee_ids
+msgid "fees de loan"
+msgstr "Loan Fees/Quota"
+
+#. module: loan_management
+#: model:ir.model.fields,field_description:loan_management.field_loan_wizard_payment_existe_fee_morosa
+msgid "fees en Mora"
+msgstr "Late Payments"
+
+#. module: loan_management
+#: model:ir.actions.act_window,name:loan_management.loan_management_loan_fee_mora_action
+#: model:ir.ui.menu,name:loan_management.menu_fee_loan_mora
+msgid "fees en mora"
+msgstr "Late Payments"
+
+#. module: loan_management
+#: model:ir.actions.act_window,name:loan_management.loan_management_loan_fee_novigenete_action
+#: model:ir.ui.menu,name:loan_management.menu_fee_loan_no_vigente
+msgid "fees no vigentes"
+msgstr "Quotas Not Active"
+
+#. module: loan_management
+#: model:ir.actions.act_window,name:loan_management.loan_management_loan_fee_vigente_action
+#: model:ir.ui.menu,name:loan_management.menu_fee_loan
+msgid "fees vigentes"
+msgstr "Quotas Active"
+
+#. module: loan_management
+#: model:ir.ui.view,arch_db:loan_management.wizard_set_payment_loans
+msgid "Detalle de Saldos"
+msgstr "Balance Details"
+
+#. module: loan_management
+#: model:ir.ui.view,arch_db:loan_management.loan_management_loan_form_view
+msgid "Detalle del loan"
+msgstr "Loan detail"
+
+#. module: loan_management
+#: model:ir.ui.view,arch_db:loan_management.loan_management_loan_form_view
+msgid "Detalles de desembolso"
+msgstr "Disbursement Details"
+
+#. module: loan_management
+#: selection:loan.management.loan.plazo,tipo_plazo:0
+msgid "Diario"
+msgstr "Daily"
+
+#. module: loan_management
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_loan_mora_dias_mora
+msgid "Dias de Mora"
+msgstr "Days past due"
+
+#. module: loan_management
+#: model:ir.model.fields,field_description:loan_management.field_loan_aportaciones_display_name
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_loan_fee_display_name
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_loan_display_name
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_loan_interes_display_name
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_loan_mora_display_name
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_loan_plazo_display_name
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_loan_type_display_name
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_tipo_documento_display_name
+#: model:ir.model.fields,field_description:loan_management.field_loan_pagos_fees_display_name
+#: model:ir.model.fields,field_description:loan_management.field_loan_pagos_display_name
+#: model:ir.model.fields,field_description:loan_management.field_loan_wizard_generar_fees_display_name
+#: model:ir.model.fields,field_description:loan_management.field_loan_wizard_payment_display_name
+#: model:ir.model.fields,field_description:loan_management.field_loan_wizard_payment_lines_display_name
+msgid "Display Name"
+msgstr "Display Name"
+
+#. module: loan_management
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_tipo_documento_documento
+msgid "Documento Adjunto"
+msgstr "Attach Document"
+
+#. module: loan_management
+#: model:ir.actions.act_window,help:loan_management.loan_management_tipo_documento_action
+#: model:ir.ui.view,arch_db:loan_management.loan_management_loan_form_view
+msgid "Documentos"
+msgstr "Documents"
+
+#. module: loan_management
+#: model:ir.ui.menu,name:loan_management.loan_tipo_documento_main
+msgid "Documentos de loan"
+msgstr "Loan Documents"
+
+#. module: loan_management
+#: model:ir.actions.act_window,name:loan_management.loan_management_tipo_documento_action
+#: model:ir.ui.menu,name:loan_management.loan_tipo_documento
+msgid "Documentos de loan"
+msgstr "Loan Documents"
+
+#. module: loan_management
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_loan_doc_ids
+msgid "Documentos de validacion"
+msgstr "Validation documents"
+
+#. module: loan_management
+#: model:ir.ui.view,arch_db:loan_management.loan_management_tipo_documento_form
+msgid "Documentos de validación"
+msgstr "Validation documents"
+
+#. module: loan_management
+#: model:ir.ui.view,arch_db:loan_management.loan_management_tipo_documento_form
+msgid "Documentos para validacion"
+msgstr "Documents for validation"
+
+#. module: loan_management
+#: model:ir.ui.view,arch_db:loan_management.loan_management_tipo_documento_tree
+msgid "Documentos para validación"
+msgstr "Documents for validation"
+
+#. module: loan_management
+#: selection:loan.management.loan,periodo_plazo_pago:0
+msgid "Días"
+msgstr "Days"
+
+#. module: loan_management
+#: code:addons/loan_management/wizard/wizard_payment.py:470
+#, python-format
+msgid "El Monto a pagar es mayor que el saldo adeudado, primero realice el pago del saldo y luego realice un abono a capital"
+msgstr "The amount to be paid is greater than the balance due, first make the payment of the balance and then make a capital payment"
+
+#. module: loan_management
+#: code:addons/loan_management/wizard/wizard_payment.py:546
+#, python-format
+msgid "El monto a pagar debe de ser mayor que cero"
+msgstr "Amount to be paid must be greater than zero"
+
+#. module: loan_management
+#: code:addons/loan_management/models/loan.py:145
+#, python-format
+msgid "El monto de desembolso debe de ser mayor que cero"
+msgstr "Disbursement amount must be greater than zero"
+
+#. module: loan_management
+#: code:addons/loan_management/models/aportaciones.py:29
+#, python-format
+msgid "El monto del ahorro debe de ser mayor que cero"
+msgstr "Savings amount must be greater than zero"
+
+#. module: loan_management
+#: code:addons/loan_management/models/loan.py:164
+#, python-format
+msgid "El monto solicitado debe de ser mayor que cero"
+msgstr "The requested amount must be greater than zero"
+
+#. module: loan_management
+#: selection:loan.management.loan,state:0
+msgid "En desembolso"
+msgstr "In Disbursement"
+
+#. module: loan_management
+#: selection:loan.management.loan,state:0
+msgid "En progreso"
+msgstr "In progress"
+
+#. module: loan_management
+#: model:ir.ui.view,arch_db:loan_management.wizard_set_payment_loans
+msgid "Escriba observaciones acerca de este pago"
+msgstr "Enter feedback about this payment"
+
+#. module: loan_management
+#: selection:loan.management.loan,state:0
+msgid "Esperando Aprobacion"
+msgstr "Waiting for approval"
+
+#. module: loan_management
+#: model:ir.actions.act_window,name:loan_management.loan_loan_esperando_aprobacion_action
+#: model:ir.ui.menu,name:loan_management.menu_loan_esperando_aprobacion
+msgid "Esperando aprobación"
+msgstr "Waiting for approval"
+
+#. module: loan_management
+#: code:addons/loan_management/wizard/wizard_payment.py:508
+#, python-format
+msgid "Esta tratando de pagar mas del correspondiente del capital del loan actual"
+msgstr "You are trying to pay more than the corresponding loan capital"
+
+#. module: loan_management
+#: model:ir.ui.view,arch_db:loan_management.loan_management_loan_form_view
+msgid "Establecer loan como vigente"
+msgstr "Establish loan as Active"
+
+
+#. module: loan_management
+#: model:ir.model.fields,field_description:loan_management.field_loan_aportaciones_state
+#: model:ir.model.fields,field_description:loan_management.field_loan_pagos_state
+msgid "Estado"
+msgstr "Status"
+
+#. module: loan_management
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_loan_fee_state
+#: model:ir.model.fields,field_description:loan_management.field_loan_wizard_payment_lines_state
+msgid "Estado de fee"
+msgstr "Quota status"
+
+#. module: loan_management
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_tipo_documento_estado
+msgid "Estado de documento"
+msgstr "Document Status"
+
+#. module: loan_management
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_loan_state
+msgid "Estado de loan"
+msgstr "Loan status"
+
+#. module: loan_management
+#: model:ir.model.fields,field_description:loan_management.field_loan_wizard_payment_state
+msgid "Estado del Pago"
+msgstr "Payment Status"
+
+#. module: loan_management
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_loan_fecha_pago
+msgid "Fecha Inicial(Pagos)"
+msgstr "Start Date (Payments)"
+
+#. module: loan_management
+#: model:ir.model.fields,field_description:loan_management.field_loan_wizard_generar_fees_date_generation
+msgid "Fecha de Generación"
+msgstr "Date of Generation"
+
+#. module: loan_management
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_loan_fee_fecha_pago
+#: model:ir.model.fields,field_description:loan_management.field_loan_wizard_payment_date_payment
+#: model:ir.model.fields,field_description:loan_management.field_loan_wizard_payment_lines_fecha_pago
+msgid "Fecha de Pago"
+msgstr "Payment date"
+
+#. module: loan_management
+#: model:ir.model.fields,field_description:loan_management.field_loan_aportaciones_fecha
+msgid "Fecha de aportación"
+msgstr "Date of contribution"
+
+#. module: loan_management
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_loan_fecha_aprobacion
+msgid "Fecha de aprobación"
+msgstr "Approval date"
+
+#. module: loan_management
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_loan_fecha_desembolso
+msgid "Fecha de desembolso"
+msgstr "Disbursement date"
+
+#. module: loan_management
+#: model:ir.model.fields,field_description:loan_management.field_loan_pagos_fecha
+msgid "Fecha de pago"
+msgstr "Payment date"
+
+#. module: loan_management
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_loan_fecha_solicitud
+msgid "Fecha de solicitud"
+msgstr "Application date"
+
+#. module: loan_management
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_loan_type_cuenta_intereses
+msgid "Ganancias por Interes"
+msgstr "Interest revenue"
+
+#. module: loan_management
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_loan_type_cuenta_intereses_mora
+msgid "Ganancias por Mora"
+msgstr "Late Payment Income"
+
+
+#. module: loan_management
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_loan_gastos_papeleria
+msgid "Gasto de Papeleria"
+msgstr "Paperwork fees"
+
+#. module: loan_management
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_loan_gasto_timbre
+msgid "Gasto de Timbre"
+msgstr "Legal Stamps Expenses"
+
+#. module: loan_management
+#: model:ir.actions.act_window,name:loan_management.action_wizard_status_fees
+#: model:ir.ui.menu,name:loan_management.menu_generar_cartera_cobros
+msgid "Generar Cartera de Cobros"
+msgstr "Generate Collection Portfolio"
+
+#. module: loan_management
+#: model:ir.ui.view,arch_db:loan_management.wizard_generar_status_fees
+msgid "Generar Cobranzas"
+msgstr "Generate Collections"
+
+#. module: loan_management
+#: model:ir.ui.menu,name:loan_management.loan_management_general
+msgid "Gestion de loans"
+msgstr "Loans Management"
+
+#. module: loan_management
+#: model:ir.module.category,description:loan_management.module_loan_management
+#: model:ir.module.category,name:loan_management.module_loan_management
+msgid "Gestión de Creditos"
+msgstr "Credit Management"
+
+#. module: loan_management
+#: model:res.groups,name:loan_management.group_management_fees
+msgid "Gestión de fees"
+msgstr "Quota Management"
+
+#. module: loan_management
+#: model:res.groups,name:loan_management.group_management_documento
+msgid "Gestión de documentos"
+msgstr "Document management"
+
+#. module: loan_management
+#: model:res.groups,name:loan_management.group_management_loan
+msgid "Gestión de loan"
+msgstr "Loan Management"
+
+#. module: loan_management
+#: model:res.groups,name:loan_management.group_management_loan_user
+msgid "Gestión de loan usuario restringido"
+msgstr "Loan Management Restricted user"
+
+#. module: loan_management
+#: model:ir.ui.view,arch_db:loan_management.mapia_management_cliente_form
+msgid "Historial de Aportaciones/Ahorros"
+msgstr "Contribution / Savings History"
+
+#. module: loan_management
+#: model:ir.ui.view,arch_db:loan_management.mapia_management_cliente_form
+msgid "Historial de loans"
+msgstr "Loan History"
+
+#. module: loan_management
+#: model:ir.model.fields,field_description:loan_management.field_loan_aportaciones_id
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_loan_fee_id
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_loan_id
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_loan_interes_id
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_loan_mora_id_4486
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_loan_plazo_id
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_loan_type_id
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_tipo_documento_id
+#: model:ir.model.fields,field_description:loan_management.field_loan_pagos_fees_id
+#: model:ir.model.fields,field_description:loan_management.field_loan_pagos_id
+#: model:ir.model.fields,field_description:loan_management.field_loan_wizard_generar_fees_id
+#: model:ir.model.fields,field_description:loan_management.field_loan_wizard_payment_id
+#: model:ir.model.fields,field_description:loan_management.field_loan_wizard_payment_lines_id
+msgid "ID"
+msgstr "ID"
+
+#. module: loan_management
+#: model:ir.model.fields,field_description:loan_management.field_res_partner_identidad
+msgid "Identidad"
+msgstr "Gov. ID Number"
+
+#. module: loan_management
+#: model:ir.model.fields,field_description:loan_management.field_loan_pagos_importe_pagado
+msgid "Importe Pagado"
+msgstr "Amount paid"
+
+#. module: loan_management
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_loan_total_monto
+msgid "Importe Total"
+msgstr "Total"
+
+#. module: loan_management
+#: model:ir.ui.view,arch_db:loan_management.loan_management_loan_fee_form_view
+#: model:ir.ui.view,arch_db:loan_management.loan_management_loan_form_view
+msgid "Información General"
+msgstr "General Information"
+
+#. module: loan_management
+#: model:ir.ui.view,arch_db:loan_management.loan_management_loan_fee_form_view
+msgid "Información de fee"
+msgstr "Quota Information"
+
+#. module: loan_management
+#: selection:loan.aportaciones,state:0
+msgid "Ingresada"
+msgstr "Entered"
+
+#. module: loan_management
+#: selection:loan.management.tipo.documento,estado:0
+msgid "Ingresado"
+msgstr "Entered"
+
+#. module: loan_management
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_loan_mora_cuenta_mora
+msgid "Ingreso por mora"
+msgstr "Late Payment Income"
+
+#. module: loan_management
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_loan_fee_interes
+msgid "Interes"
+msgstr "Interest"
+
+#. module: loan_management
+#: model:ir.model.fields,field_description:loan_management.field_loan_aportaciones___last_update
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_loan___last_update
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_loan_fee___last_update
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_loan_interes___last_update
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_loan_mora___last_update
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_loan_plazo___last_update
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_loan_type___last_update
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_tipo_documento___last_update
+#: model:ir.model.fields,field_description:loan_management.field_loan_pagos___last_update
+#: model:ir.model.fields,field_description:loan_management.field_loan_pagos_fees___last_update
+#: model:ir.model.fields,field_description:loan_management.field_loan_wizard_generar_fees___last_update
+#: model:ir.model.fields,field_description:loan_management.field_loan_wizard_payment___last_update
+#: model:ir.model.fields,field_description:loan_management.field_loan_wizard_payment_lines___last_update
+msgid "Last Modified on"
+msgstr "Last Modified on"
+
+#. module: loan_management
+#: model:ir.model.fields,field_description:loan_management.field_loan_aportaciones_write_uid
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_loan_fee_write_uid
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_loan_interes_write_uid
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_loan_mora_write_uid
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_loan_plazo_write_uid
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_loan_type_write_uid
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_loan_write_uid
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_tipo_documento_write_uid
+#: model:ir.model.fields,field_description:loan_management.field_loan_pagos_fees_write_uid
+#: model:ir.model.fields,field_description:loan_management.field_loan_pagos_write_uid
+#: model:ir.model.fields,field_description:loan_management.field_loan_wizard_generar_fees_write_uid
+#: model:ir.model.fields,field_description:loan_management.field_loan_wizard_payment_lines_write_uid
+#: model:ir.model.fields,field_description:loan_management.field_loan_wizard_payment_write_uid
+msgid "Last Updated by"
+msgstr "Last Updated by"
+
+#. module: loan_management
+#: model:ir.model.fields,field_description:loan_management.field_loan_aportaciones_write_date
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_loan_fee_write_date
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_loan_interes_write_date
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_loan_mora_write_date
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_loan_plazo_write_date
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_loan_type_write_date
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_loan_write_date
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_tipo_documento_write_date
+#: model:ir.model.fields,field_description:loan_management.field_loan_pagos_fees_write_date
+#: model:ir.model.fields,field_description:loan_management.field_loan_pagos_write_date
+#: model:ir.model.fields,field_description:loan_management.field_loan_wizard_generar_fees_write_date
+#: model:ir.model.fields,field_description:loan_management.field_loan_wizard_payment_lines_write_date
+#: model:ir.model.fields,field_description:loan_management.field_loan_wizard_payment_write_date
+msgid "Last Updated on"
+msgstr "Last Updated on"
+
+#. module: loan_management
+#: selection:loan.management.loan,state:0
+msgid "Liquidado"
+msgstr "Liquidated"
+
+#. module: loan_management
+#: code:addons/loan_management/models/loan.py:291
+#, python-format
+msgid "Los plazos de pago deben ser mayor que 1"
+msgstr "Payment terms must be greater than 1"
+
+#. module: loan_management
+#: selection:loan.management.loan.interes,capitalizable:0
+msgid "Mensual"
+msgstr "Monthly"
+
+#. module: loan_management
+#: model:ir.ui.view,arch_db:loan_management.loan_management_loan_search
+msgid "Mes"
+msgstr "Month"
+
+#. module: loan_management
+#: selection:loan.management.loan,periodo_plazo_pago:0
+#: selection:loan.management.loan.plazo,tipo_plazo:0
+msgid "Meses"
+msgstr "Months"
+
+#. module: loan_management
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_loan_type_metodo_calculo
+msgid "Metodo de Cálculo"
+msgstr "Method of Calculation"
+
+#. module: loan_management
+#: model:ir.model.fields,field_description:loan_management.field_loan_aportaciones_journal_id
+#: model:ir.model.fields,field_description:loan_management.field_loan_wizard_payment_journal_id
+msgid "Metodo de pago"
+msgstr "Payment method"
+
+#. module: loan_management
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_loan_fee_currency_id
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_loan_currency_id
+#: model:ir.model.fields,field_description:loan_management.field_loan_wizard_payment_currency_id
+#: model:ir.model.fields,field_description:loan_management.field_loan_wizard_payment_lines_currency_id
+msgid "Moneda"
+msgstr "Currency"
+
+#. module: loan_management
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_loan_type_monto_maximo
+msgid "Monto Maximo"
+msgstr "Maximum amount"
+
+#. module: loan_management
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_loan_fee_monto_pagado
+#: model:ir.model.fields,field_description:loan_management.field_loan_wizard_payment_lines_monto_pago
+msgid "Monto Pagado"
+msgstr "Amount Paid"
+
+#. module: loan_management
+#: model:ir.model.fields,field_description:loan_management.field_loan_wizard_payment_monto_vigente
+msgid "Monto Vigente"
+msgstr "Current Amount"
+
+#. module: loan_management
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_loan_total_desembolso
+msgid "Monto a desembolsar"
+msgstr "Amount to be disbursed"
+
+#. module: loan_management
+#: model:ir.model.fields,field_description:loan_management.field_loan_wizard_payment_monto
+msgid "Monto a pagar"
+msgstr "Amount payable"
+
+#. module: loan_management
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_loan_fee_monto_fee
+#: model:ir.model.fields,field_description:loan_management.field_loan_pagos_fees_monto_fee
+#: model:ir.model.fields,field_description:loan_management.field_loan_wizard_payment_lines_monto_fee
+msgid "Monto de fee"
+msgstr "Amount of Quota"
+
+#. module: loan_management
+#: model:ir.model.fields,field_description:loan_management.field_loan_aportaciones_monto_aportacion
+msgid "Monto de aportación"
+msgstr "Amount of contribution"
+
+#. module: loan_management
+#: model:ir.model.fields,help:loan_management.field_loan_management_loan_type_monto_maximo
+msgid "Monto maximo para el loan"
+msgstr "Maximum amount for the loan"
+
+#. module: loan_management
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_loan_monto_solicitado
+msgid "Monto solicitado"
+msgstr "Requested amount"
+
+#. module: loan_management
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_loan_fee_mora
+#: model:ir.model.fields,field_description:loan_management.field_loan_pagos_fees_mora
+#: model:ir.model.fields,field_description:loan_management.field_loan_wizard_payment_lines_mora
+msgid "Mora"
+msgstr "Late Payment"
+
+#. module: loan_management
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_loan_mora_name
+msgid "Mora "
+msgstr "Late Payment "
+
+#. module: loan_management
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_loan_mora_active
+msgid "Mora Activa"
+msgstr "Active Late Payment"
+
+#. module: loan_management
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_loan_mora_loan
+msgid "Mora de loan"
+msgstr "Loan Late Payment"
+
+#. module: loan_management
+#: model:ir.ui.view,arch_db:loan_management.loan_management_loan_form_view
+msgid "Mora y Montos"
+msgstr "Late Payment and Amounts"
+
+#. module: loan_management
+#: selection:loan.management.loan.fee,state:0
+#: selection:loan.wizard.payment.lines,state:0
+msgid "Morosa"
+msgstr "Delinquent"
+
+#. module: loan_management
+#: code:addons/loan_management/models/loan.py:147
+#, python-format
+msgid "No existe cuenta asociada al banco, revise las parametrizaciones contables del diario"
+msgstr "There is no account associated with the bank, check the journal's accounting settings"
+
+#. module: loan_management
+#: code:addons/loan_management/models/loan.py:134
+#, python-format
+msgid "No puede establecer fees en vigente ya que ya existe una fee vigente o fee(s) morosa(s)"
+msgstr "You can not establish active quotas since there is already an existing quota or a delinquent quota"
+
+#. module: loan_management
+#: code:addons/loan_management/models/loan.py:193
+#: code:addons/loan_management/models/loan.py:252
+#, python-format
+msgid "No se han definido tasas capitalizables mensuales y quincenales"
+msgstr "No monthly and bi-weekly capitalization rates have been defined"
+
+#. module: loan_management
+#: selection:loan.management.loan.fee,state:0
+#: selection:loan.wizard.payment.lines,state:0
+msgid "No vigente"
+msgstr "Not Active"
+
+#. module: loan_management
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_loan_referencia_desembolso
+msgid "No. de Cheque/ Transferencia"
+msgstr "Check / Transfer Number"
+
+#. module: loan_management
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_loan_plazo_name
+msgid "Nombre de Plazo"
+msgstr "Term Name"
+
+#. module: loan_management
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_loan_interes_name
+msgid "Nombre de Tasa"
+msgstr "Rate Name"
+
+#. module: loan_management
+#: model:ir.ui.view,arch_db:loan_management.loan_management_loan_type_form_view
+msgid "Nombre de loan ..."
+msgstr "Loan name ..."
+
+#. module: loan_management
+#: model:ir.ui.view,arch_db:loan_management.loan_management_mora_form_view
+msgid "Nombre de tasa de mora ejemplo Mora 3.5% ..."
+msgstr "Name of late payment rate, (Ex. Late Payment 3.5% ..."
+
+#. module: loan_management
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_tipo_documento_name
+msgid "Nombre de tipo de documento"
+msgstr "Document type name"
+
+#. module: loan_management
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_tipo_documento_nota
+msgid "Nota"
+msgstr "Note"
+
+#. module: loan_management
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_loan_notas
+#: model:ir.ui.view,arch_db:loan_management.loan_management_loan_aportacion_form_view
+#: model:ir.ui.view,arch_db:loan_management.loan_management_loan_fee_form_view
+msgid "Notas"
+msgstr "Notes"
+
+#. module: loan_management
+#: model:ir.model.fields,field_description:loan_management.field_loan_aportaciones_observaciones
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_loan_fee_description
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_loan_mora_description
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_loan_type_description
+#: model:ir.model.fields,field_description:loan_management.field_loan_wizard_payment_lines_description
+#: model:ir.ui.view,arch_db:loan_management.loan_management_loan_form_view
+msgid "Notas Generales"
+msgstr "General Notes"
+
+#. module: loan_management
+#: model:ir.ui.view,arch_db:loan_management.loan_management_loan_form_view
+msgid "Notas de desembolso"
+msgstr "Disbursement Notes"
+
+#. module: loan_management
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_loan_notas_desembolso
+msgid "Notas de desombolso"
+msgstr "Disbursement Notes"
+
+#. module: loan_management
+#: model:ir.ui.view,arch_db:loan_management.loan_management_loan_type_form_view
+msgid "Notas generales  ..."
+msgstr "General Notes  ..."
+
+#. module: loan_management
+#: model:ir.ui.view,arch_db:loan_management.loan_management_loan_form_view
+msgid "Notas generales de desembolso"
+msgstr "General Disbursement Notes"
+
+#. module: loan_management
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_loan_plazo_numero_plazo
+msgid "Numero de plazos"
+msgstr "Number of installments"
+
+#. module: loan_management
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_loan_fee_loan_id
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_loan_name
+msgid "Numero de loan"
+msgstr "Loan number"
+
+#. module: loan_management
+#: model:ir.ui.view,arch_db:loan_management.loan_management_loan_form_view
+msgid "Numero de loan ..."
+msgstr "Loan number ..."
+
+#. module: loan_management
+#: model:ir.model.fields,field_description:loan_management.field_loan_pagos_fees_pago_id
+msgid "Número de Pago"
+msgstr "Payment Number"
+
+#. module: loan_management
+#: model:ir.model.fields,field_description:loan_management.field_loan_aportaciones_name
+msgid "Número de aportación"
+msgstr "Contribution number"
+
+#. module: loan_management
+#: model:ir.model.fields,field_description:loan_management.field_loan_pagos_name
+msgid "Número de pago"
+msgstr "Payment number"
+
+#. module: loan_management
+#: model:ir.model.fields,field_description:loan_management.field_loan_pagos_observaciones
+#: model:ir.model.fields,field_description:loan_management.field_loan_wizard_payment_notas
+#: model:ir.ui.view,arch_db:loan_management.wizard_set_payment_loans
+msgid "Observaciones"
+msgstr "Observations"
+
+#. module: loan_management
+#: selection:loan.management.loan.fee,state:0
+#: selection:loan.wizard.payment,state:0
+#: selection:loan.wizard.payment.lines,state:0
+msgid "Pagada"
+msgstr "Paid"
+
+#. module: loan_management
+#: model:ir.ui.view,arch_db:loan_management.loan_management_loan_form_view
+msgid "Pagar fees"
+msgstr "Paying Quotas"
+
+#. module: loan_management
+#: model:ir.ui.view,arch_db:loan_management.loan_management_loan_fee_form_view
+msgid "Pagar fees(Temporal)"
+msgstr "Paying Quotas(Temporary)"
+
+#. module: loan_management
+#: model:ir.model.fields,field_description:loan_management.field_loan_wizard_payment_lines_pago_fee_id
+msgid "Pago"
+msgstr "Payment"
+
+#. module: loan_management
+#: model:ir.actions.act_window,name:loan_management.action_wizard_pago_fee_loan
+msgid "Pago de fees"
+msgstr "Payment of Fees"
+
+#. module: loan_management
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_loan_pagos_ids
+msgid "Pagos de fees"
+msgstr "Payment of Fees"
+
+#. module: loan_management
+#: model:ir.ui.view,arch_db:loan_management.loan_management_loan_form_view
+msgid "Pagos de loan"
+msgstr "Payment of Fees"
+
+#. module: loan_management
+#: model:ir.ui.view,arch_db:loan_management.loan_management_loan_form_view
+msgid "Pagos de fees"
+msgstr "Payment of Fees"
+
+#. module: loan_management
+#: model:ir.model,name:loan_management.model_res_partner
+msgid "Partner"
+msgstr "Partner"
+
+#. module: loan_management
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_loan_periodo_plazo_pago
+msgid "Periodo"
+msgstr "Period"
+
+#. module: loan_management
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_loan_plazo_tipo_plazo
+msgid "Periodos"
+msgstr "Periods"
+
+#. module: loan_management
+#: model:ir.ui.view,arch_db:loan_management.loan_management_loan_form_view
+msgid "Plan de pago"
+msgstr "Payment plan"
+
+#. module: loan_management
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_loan_plazo_pago
+msgid "Plazo de pago"
+msgstr "Payment Terms"
+
+#. module: loan_management
+#: model:ir.ui.view,arch_db:loan_management.loan_management_plazo_form
+msgid "Plazo de loans"
+msgstr "Loan Terms"
+
+#. module: loan_management
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_loan_type_plazo_pago_id
+msgid "Plazo de tiempo"
+msgstr "Time frame"
+
+#. module: loan_management
+#: model:ir.actions.act_window,name:loan_management.loan_management_plazo_action
+#: model:ir.ui.menu,name:loan_management.loan_management_plazo
+msgid "Plazos de loans"
+msgstr "Loan terms"
+
+#. module: loan_management
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_tipo_documento_loan_id
+#: model:ir.model.fields,field_description:loan_management.field_loan_pagos_loan_id
+msgid "loan"
+msgstr "Loan"
+
+#. module: loan_management
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_loan_type_active
+msgid "loan Activo"
+msgstr "Active Loan"
+
+#. module: loan_management
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_loan_loan_moroso
+msgid "loan en mora"
+msgstr "Delinquent Loan"
+
+#. module: loan_management
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_loan_loan_done
+msgid "loan liquidado"
+msgstr "Loan settled"
+
+#. module: loan_management
+#: model:ir.ui.menu,name:loan_management.loan_management_main
+#: model:ir.ui.view,arch_db:loan_management.view_loan_management_calendar
+msgid "loans"
+msgstr "Loans"
+
+#. module: loan_management
+#: model:ir.actions.act_window,name:loan_management.loan_loan_activos_action
+#: model:ir.ui.menu,name:loan_management.menu_loan_con_activos
+msgid "loans Activos"
+msgstr "Active Loans"
+
+#. module: loan_management
+#: model:ir.actions.act_window,name:loan_management.loan_loan_pagados_action
+#: model:ir.ui.menu,name:loan_management.menu_loan_pagados
+msgid "loans Pagados"
+msgstr "Loans settled"
+
+#. module: loan_management
+#: model:ir.actions.act_window,name:loan_management.loan_loan_aprobados_action
+#: model:ir.ui.menu,name:loan_management.menu_loan_aprobados
+msgid "loans aprobados"
+msgstr "Approved Loans"
+
+#. module: loan_management
+#: model:ir.model.fields,field_description:loan_management.field_res_partner_aportaciones_ids
+#: model:ir.model.fields,field_description:loan_management.field_res_partner_loans_ids
+msgid "loans de Cliente"
+msgstr "Customer Loans"
+
+#. module: loan_management
+#: model:ir.actions.act_window,name:loan_management.loan_loan_rechazado_action
+#: model:ir.ui.menu,name:loan_management.menu_loan_rechazado
+msgid "loans rechazados"
+msgstr "Loans rejected"
+
+#. module: loan_management
+#: code:addons/loan_management/wizard/wizard_payment.py:313
+#, python-format
+msgid "Primero genere la revisión de saldos, para poder realizar pagos"
+msgstr "First generate the balance review, in order to make payments"
+
+#. module: loan_management
+#: selection:loan.management.tipo.documento,estado:0
+msgid "Proceso de validacion"
+msgstr "Validation process"
+
+#. module: loan_management
+#: selection:loan.management.loan.interes,capitalizable:0
+msgid "Quincenal"
+msgstr "Bi-weekly"
+
+#. module: loan_management
+#: selection:loan.management.loan.plazo,tipo_plazo:0
+msgid "Quincenas"
+msgstr "Bi-weekly"
+
+#. module: loan_management
+#: model:ir.model.fields,field_description:loan_management.field_res_partner_rtn
+msgid "RTN"
+msgstr "Tax Payer ID"
+
+#. module: loan_management
+#: model:ir.ui.view,arch_db:loan_management.loan_management_loan_form_view
+msgid "Realizar desembolso"
+msgstr "Disburse"
+
+#. module: loan_management
+#: model:ir.ui.view,arch_db:loan_management.wizard_set_payment_loans
+msgid "Realizar pago"
+msgstr "Make payment"
+
+#. module: loan_management
+#: model:ir.ui.view,arch_db:loan_management.wizard_set_payment_loans
+msgid "Realizar pagos"
+msgstr "Make Payments"
+
+#. module: loan_management
+#: selection:loan.management.loan,state:0
+msgid "Rechazado"
+msgstr "Rejected"
+
+#. module: loan_management
+#: model:ir.ui.view,arch_db:loan_management.loan_management_loan_form_view
+msgid "Rechazar loan"
+msgstr "Refuse loan"
+
+#. module: loan_management
+#: model:ir.actions.act_window,help:loan_management.loan_ahorros_action
+msgid "Registrar ahorros de cliente"
+msgstr "Record customer savings"
+
+#. module: loan_management
+#: model:ir.actions.act_window,help:loan_management.loan_aportaciones_action
+msgid "Registrar aportaciones de cliente"
+msgstr "Record customer contributions"
+
+#. module: loan_management
+#: model:ir.actions.act_window,name:loan_management.loan_ahorros_action
+#: model:ir.ui.menu,name:loan_management.loan_ahorros_management_action
+msgid "Registro de Ahorros"
+msgstr "Savings Log"
+
+#. module: loan_management
+#: model:ir.actions.act_window,name:loan_management.loan_aportaciones_action
+#: model:ir.ui.menu,name:loan_management.loan_aportaciones_management_action
+msgid "Registro de Aportaciones"
+msgstr "Contribution Log"
+
+#. module: loan_management
+#: model:ir.ui.view,arch_db:loan_management.loan_management_loan_graph
+msgid "Resumen"
+msgstr "Summary"
+
+#. module: loan_management
+#: model:ir.ui.view,arch_db:loan_management.wizard_set_payment_loans
+msgid "Revisar Saldo"
+msgstr "Review Balance"
+
+#. module: loan_management
+#: model:ir.ui.view,arch_db:loan_management.wizard_set_payment_loans
+msgid "Revisar Saldos"
+msgstr "Review Balances"
+
+#. module: loan_management
+#: model:ir.model.fields,field_description:loan_management.field_loan_wizard_payment_has_revision_saldo
+msgid "Revision de Saldos"
+msgstr "Balance Review"
+
+#. module: loan_management
+#: selection:loan.wizard.payment,state:0
+msgid "Revisión de Saldo"
+msgstr "Balance Review"
+
+#. module: loan_management
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_loan_fee_saldo_loan
+msgid "Saldo Pendiente"
+msgstr "Pending Balance"
+
+#. module: loan_management
+#: model:ir.model.fields,field_description:loan_management.field_res_partner_saldo_cliente
+msgid "Saldo de Cliente"
+msgstr "Customer Balance"
+
+#. module: loan_management
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_loan_fee_saldo_pendiente
+#: model:ir.model.fields,field_description:loan_management.field_loan_pagos_fees_saldo_pendiente
+msgid "Saldo de fee"
+msgstr "Quota Balance"
+
+#. module: loan_management
+#: model:ir.model.fields,field_description:loan_management.field_loan_wizard_payment_lines_saldo_pendiente
+msgid "Saldo de Pendiente"
+msgstr "Pending Balance"
+
+#. module: loan_management
+#: model:ir.model.fields,field_description:loan_management.field_loan_wizard_payment_saldo_mora
+msgid "Saldo en Mora"
+msgstr "Late Payment Balance"
+
+#. module: loan_management
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_loan_saldo_pendiente
+msgid "Saldo pendiente"
+msgstr "Pending Balance"
+
+#. module: loan_management
+#: model:ir.ui.view,arch_db:loan_management.loan_management_loan_form_view
+msgid "Solicitar aprobacion"
+msgstr "Request approval"
+
+#. module: loan_management
+#: model:ir.ui.view,arch_db:loan_management.loan_management_loan_tree_view
+msgid "Solicitud de loans"
+msgstr "Loans application"
+
+#. module: loan_management
+#: model:ir.ui.view,arch_db:loan_management.loan_management_loan_form_view
+msgid "Solicitud de loan"
+msgstr "Loan application"
+
+#. module: loan_management
+#: model:ir.actions.act_window,name:loan_management.loan_management_loan_action
+#: model:ir.ui.menu,name:loan_management.menu_solicitud_loan
+msgid "Solicitudes de loan"
+msgstr "Loans applications"
+
+#. module: loan_management
+#: model:ir.ui.view,arch_db:loan_management.loan_management_loan_interes_form
+msgid "Tasa Interes"
+msgstr "Interest Rate"
+
+#. module: loan_management
+#: model:ir.ui.view,arch_db:loan_management.management_loan_mora_tree_view
+msgid "Tasa Mora"
+msgstr "Late Payment Rate"
+
+#. module: loan_management
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_loan_mora_id
+msgid "Tasa Moratoria"
+msgstr "Rate of Late Interest"
+
+#. module: loan_management
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_loan_type_tasa_interes_id
+#: model:ir.ui.view,arch_db:loan_management.loan_management_loan_interes_tree
+msgid "Tasa de Interes"
+msgstr "Interest rate"
+
+#. module: loan_management
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_loan_tasa_interes
+#: model:ir.ui.view,arch_db:loan_management.loan_management_loan_interes_form
+msgid "Tasa de interes"
+msgstr "Interest rate"
+
+#. module: loan_management
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_loan_interes_tasa_interes
+msgid "Tasa de interes (%)"
+msgstr "Interest rate (%)"
+
+#. module: loan_management
+#: model:ir.actions.act_window,name:loan_management.loan_management_loan_interes_action
+#: model:ir.ui.menu,name:loan_management.loan_management_loan_interes
+msgid "Tasa de intereses"
+msgstr "Interest rate"
+
+#. module: loan_management
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_loan_mora_tasa_mora
+#: model:ir.model.fields,help:loan_management.field_loan_management_loan_mora_tasa_mora
+msgid "Tasa de mora"
+msgstr "Late Payment Rate"
+
+#. module: loan_management
+#: model:ir.actions.act_window,name:loan_management.loan_management_mora_action
+#: model:ir.ui.menu,name:loan_management.menu_tasa_moratoria
+msgid "Tasas Moratorias"
+msgstr "Rate Late Payments"
+
+#. module: loan_management
+#: model:ir.ui.view,arch_db:loan_management.loan_management_plazo_tree
+msgid "Tiempo de loan"
+msgstr "Loan Time"
+
+#. module: loan_management
+#: model:ir.model.fields,field_description:loan_management.field_loan_aportaciones_tipo_aportacion
+msgid "Tipo"
+msgstr "Type"
+
+#. module: loan_management
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_loan_tipo_loan_id
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_loan_type_name
+#: model:ir.ui.view,arch_db:loan_management.loan_management_loan_type_form_view
+#: model:ir.ui.view,arch_db:loan_management.loan_management_mora_form_view
+msgid "Tipo de loan"
+msgstr "Type of Loan"
+
+#. module: loan_management
+#: model:ir.ui.view,arch_db:loan_management.loan_aportaciones_tree_view
+#: model:ir.ui.view,arch_db:loan_management.loan_management_loan_fee_view
+#: model:ir.ui.view,arch_db:loan_management.loan_management_loan_type_tree_view
+msgid "Tipo de loans"
+msgstr "Type of Loans"
+
+#. module: loan_management
+#: model:ir.actions.act_window,name:loan_management.loan_management_loan_type_action
+#: model:ir.ui.menu,name:loan_management.menu_tipo_loan
+msgid "Tipo de loan"
+msgstr "Type of Loan"
+
+#. module: loan_management
+#: model:ir.ui.view,arch_db:loan_management.loan_aportaciones_tree_view
+#: model:ir.ui.view,arch_db:loan_management.loan_management_loan_form_view
+#: model:ir.ui.view,arch_db:loan_management.wizard_set_payment_loans
+msgid "Total"
+msgstr "Total"
+
+#. module: loan_management
+#: model:ir.model.fields,field_description:loan_management.field_loan_wizard_payment_saldo_pago
+msgid "Total Saldo Pendiente"
+msgstr "Total Balance Pending"
+
+#. module: loan_management
+#: model:ir.model.fields,field_description:loan_management.field_loan_management_loan_total_interes
+msgid "Total de interes"
+msgstr "Total Interest"
+
+#. module: loan_management
+#: model:ir.ui.view,arch_db:loan_management.loan_management_loan_form_view
+msgid "Validacion de documentos"
+msgstr "Validation of documents"
+
+#. module: loan_management
+#: selection:loan.management.tipo.documento,estado:0
+#: selection:loan.pagos,state:0
+msgid "Validado"
+msgstr "Verified"
+
+#. module: loan_management
+#: model:ir.ui.view,arch_db:loan_management.loan_management_loan_aportacion_form_view
+msgid "Validar Transacción"
+msgstr "Verify Transaction"
+
+#. module: loan_management
+#: selection:loan.management.loan.fee,state:0
+#: selection:loan.wizard.payment.lines,state:0
+msgid "Vigente"
+msgstr "Active"
+
+#. module: loan_management
+#: model:ir.model,name:loan_management.model_loan_aportaciones
+msgid "loan.aportaciones"
+msgstr "loan.aportaciones"
+
+#. module: loan_management
+#: model:ir.model,name:loan_management.model_loan_management_loan
+msgid "loan.management.loan"
+msgstr "loan.management.loan"
+
+#. module: loan_management
+#: model:ir.model,name:loan_management.model_loan_management_loan_fee
+msgid "loan.management.loan.fee"
+msgstr "loan.management.loan.fee"
+
+#. module: loan_management
+#: model:ir.model,name:loan_management.model_loan_management_loan_interes
+msgid "loan.management.loan.interes"
+msgstr "loan.management.loan.interes"
+
+#. module: loan_management
+#: model:ir.model,name:loan_management.model_loan_management_loan_mora
+msgid "loan.management.loan.mora"
+msgstr "loan.management.loan.mora"
+
+#. module: loan_management
+#: model:ir.model,name:loan_management.model_loan_management_loan_plazo
+msgid "loan.management.loan.plazo"
+msgstr "loan.management.loan.plazo"
+
+#. module: loan_management
+#: model:ir.model,name:loan_management.model_loan_management_loan_type
+msgid "loan.management.loan.type"
+msgstr "loan.management.loan.type"
+
+#. module: loan_management
+#: model:ir.model,name:loan_management.model_loan_management_tipo_documento
+msgid "loan.management.tipo.documento"
+msgstr "loan.management.tipo.documento"
+
+#. module: loan_management
+#: model:ir.model,name:loan_management.model_loan_pagos
+msgid "loan.pagos"
+msgstr "loan.pagos"
+
+#. module: loan_management
+#: model:ir.model,name:loan_management.model_loan_pagos_fees
+msgid "loan.pagos.fees"
+msgstr "loan.pagos.fees"
+
+#. module: loan_management
+#: model:ir.model,name:loan_management.model_loan_wizard_payment_lines
+msgid "loan.wizard.payment.lines"
+msgstr "loan.wizard.payment.lines"
+

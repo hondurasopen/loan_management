@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+   <data>
+    
+  <!-- Vista Formulario Presamo-->
+   <record model="ir.ui.view" id="loan_retiros_form_view">
+   <field name="name">loan.retiros.form</field>
+   <field name="model">loan.retiros</field>
+   <field name="arch" type="xml">
+   <form string="Cuotas de Prestamo">
+      <header>
+        <button name="action_ingresar" type="object" string="Validar Transacción" states="draft" class="oe_highlight"/>
+       <field name="state" widget="statusbar" nolabel="1"/>
+      </header>   
+       <sheet> 
+          <h2>
+            <field name="name" class="oe_inline" required="1" attrs="{'readonly': [('state','!=','draft')]}"/>
+          </h2>
+          <group colspan="4">
+             <group cols="2">   
+                <field name="cliente_id" options="{'no_create': True}" attrs="{'readonly': [('state','!=','draft')]}"/>
+                <field name="monto_retiro" attrs="{'readonly': [('state','!=','draft')]}"/>
+           </group>
+          <group cols="2">
+              <field name="journal_id" options="{'no_create': True}" attrs="{'readonly': [('state','!=','draft')]}"/>
+              <field name="fecha" attrs="{'readonly': [('state','!=','draft')]}"/>
+			  <field name="total_disponible" />
+              <field name="move_id" />
+			  <field name="currency_id" invisible="1"/>
+          </group>
+        </group>    
+        <notebook>
+         <page string="Notas">
+        <field name="observaciones" />
+         </page> 
+      </notebook>
+  </sheet>     
+  <div class="oe_chatter">
+            <field name="message_ids" widget="mail_thread"/>
+    </div>
+   </form>
+   </field> 
+   </record> 
+   <!-- Fin de Vista form  -->
+   <!--  Vista Tree Tipo de Prestamo-->
+   <record model="ir.ui.view" id="loan_retiros_tree_view">
+   <field name="name">loan.retiros.tree</field>
+   <field name="model">loan.retiros</field>
+   <field name="arch" type="xml">
+       <tree string="Retiro"  delete="0">
+          <field name="name"/>
+           <field name="cliente_id"/>
+           <field name="fecha" />
+           <field name="monto_retiro" sum="Total"/>
+	      <field name="state"/>
+       </tree>
+   </field> 
+   </record>
+   <!--  Accion para Prestamos -->
+   <record model="ir.actions.act_window" id="loan_retiros_action">
+   <field name="name">Registro de Retiros</field>
+   <field name="res_model">loan.retiros</field>
+   <field name="view_type">form</field>
+   <field name="view_mode">tree,form</field>
+    <field name="help" type="html">
+        <p class="oe_view_nocontent_create">Registrar retiros de clientes</p>
+   </field>
+   </record>
+
+   
+   <!-- Fin de Action de Contratos -->
+     <!--  Menu Principal de Prestamos-->
+
+       <menuitem string="Retiros"  id="loan_retiros_management_action" parent="loan_aportaciones_management" action="loan_retiros_action"  sequence="50"/>
+    
+   </data>
+</odoo>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

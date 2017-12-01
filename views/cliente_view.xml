@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+	<record model="ir.ui.view" id="mapia_management_cliente_form">
+        <field name="name">res.partner.form.view.inh</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form" />
+   	 	<field name="arch" type="xml">
+			<field name="phone" position="before">
+    	 		<field name="identidad" attrs="{'invisible': [('supplier', '=', True)]}"/>
+				<field name="rtn"/>
+			</field>
+		<notebook position="inside">
+		<page string="Hstorial de Préstamos" sequence="1" attrs="{'invisible': [('supplier', '=', True)]}">
+			<field name="prestamos_ids"/>
+		</page>
+        <page string="Aportaciones" sequence="1" attrs="{'invisible': [('supplier', '=', True)]}">
+          <separator string="Historial de Aportaciones/Ahorros"/>
+          <group colspan="4">  
+                <group cols="2">
+                    <field name="saldo_cliente"/>
+                </group>
+                 <group cols="2">
+                    <field name="total_ahorros"/>
+                    <field name="total_aportaciones"/>
+					<field name="total_retiros"/>
+                </group>
+          </group>
+              <field name="aportaciones_ids"/>
+        </page>
+		<page string="Hstorial de Retiros" sequence="80" attrs="{'invisible': [('supplier', '=', True)]}">
+			<field name="retiro_ids"/>
+		</page>
+		</notebook>
+   		</field> 
+   	</record>  
+    </data>
+</odoo>
+

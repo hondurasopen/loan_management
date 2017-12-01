@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+   <data>
+  <!-- Vista Formulario de Plazo de interes-->
+   <record model="ir.ui.view" id="loan_management_tipo_documento_form">
+   <field name="name">loan.management.tipo.documento.form</field>
+   <field name="model">loan.management.tipo.documento</field>
+   <field name="arch" type="xml">
+     <form string="Documentos de validación">				
+          <sheet>  
+          <separator string="Documentos para validacion" />
+          <group colspan="4">
+		
+			<field name="name"/>
+		
+			<field name="documento"/>
+		       <field name="estado"/>
+		
+	   </group>
+	     <group colspan="4">		
+	   <field name="nota"/>
+	   </group>
+	</sheet>     
+     </form>
+   </field> 
+   </record>  
+   <!-- Fin de Vista form  -->
+  <!-- Vista Tree de prestamo-->
+<record model="ir.ui.view" id="loan_management_tipo_documento_tree">
+   <field name="name">loan.management.tipo.documento.tree</field>
+   <field name="model">loan.management.tipo.documento</field>
+   <field name="arch" type="xml">
+       <tree string="Documentos para validación">
+                      <field name="name"/>
+		       <field name="prestamo_id"/>
+		       <field name="estado"/>
+       </tree>
+   </field> 
+   </record>
+
+   <!--  Accion para prestamo -->
+   <record model="ir.actions.act_window" id="loan_management_tipo_documento_action">
+   <field name="name">Documentos de prestamo</field>
+   <field name="res_model">loan.management.tipo.documento</field>
+   <field name="view_type">form</field>
+   <field name="view_model">tree,form</field>
+   <field name="help" type="html">
+      <p class="oe_view_nocontent_create">Documentos</p>
+   </field>
+   </record>
+   
+<menuitem id="loan_tipo_documento_main" name="Documentos de Prestamo" string="Documentos de Prestamo" parent="loan_management_main" sequence="20"/>
+<menuitem string="Documentos de validacon" action="loan_management_tipo_documento_action" id="loan_tipo_documento" parent="loan_tipo_documento_main" sequence="4"/>
+
+   </data>
+</odoo>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+   <data>
+  <!-- Vista Formulario de Plazo de prestamo-->
+   <record model="ir.ui.view" id="loan_management_loan_interes_form">
+   <field name="name">loan.management.loan.plazo.form</field>
+   <field name="model">loan.management.loan.interes</field>
+   <field name="arch" type="xml">
+     <form string="Tasa Interes">				
+          <sheet>  
+          <separator string="Tasa de interes"/>
+          <group colspan="4">
+		<group cols="2">  
+			<field name="name" readonly="1"/>
+		         <field name="active"/>
+		</group>
+		<group cols="2"> 
+		       <field name="tasa_interes"/>
+		       	<field name="capitalizable"/>
+		</group>
+	   </group>		
+	</sheet>     
+     </form>
+   </field> 
+   </record>  
+   <!-- Fin de Vista form  -->
+  <!-- Vista Tree de interes-->
+<record model="ir.ui.view" id="loan_management_loan_interes_tree">
+   <field name="name">loan.management.loan.interes.tree</field>
+   <field name="model">loan.management.loan.interes</field>
+   <field name="arch" type="xml">
+       <tree string="Tasa de Interes">
+                 <field name="name"/>
+		<field name="tasa_interes"/>
+		<field name="capitalizable"/>
+       </tree>
+   </field> 
+   </record>
+
+   <!--  Accion para prestamo -->
+   <record model="ir.actions.act_window" id="loan_management_loan_interes_action">
+   <field name="name">Tasa de intereses</field>
+   <field name="res_model">loan.management.loan.interes</field>
+   <field name="view_type">form</field>
+   <field name="view_model">tree,form</field>
+   <field name="help" type="html">
+   <p class="oe_view_nocontent_create">Crear primer plazo de pago</p>
+   </field>
+   </record>
+
+<menuitem string="Interes de prestamo" action="loan_management_loan_interes_action" id="loan_management_loan_interes" parent="loan_management_configuration" sequence="4"/>
+
+   </data>
+</odoo>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

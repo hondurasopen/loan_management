@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+ <record model="ir.module.category" id="module_loan_management">
+            <field name="name">Gestión de Creditos</field>
+            <field name="description">Gestión de Creditos</field>
+            <field name="sequence">4</field>
+ </record>
+<!-- Accesso a aprobar prestamos-->
+<record id="group_aprobar_prestamos" model="res.groups">
+<field name="category_id" ref="module_loan_management"/>
+<field name="name">Aprobar Prestamos</field>
+</record>
+
+<record id="group_adelantar_cuotas" model="res.groups">
+<field name="category_id" ref="module_loan_management"/>
+<field name="name">Adelantar cuotas</field>
+</record>
+  
+<record id="group_aportaciones_prestamo" model="res.groups">
+<field name="category_id" ref="module_loan_management"/>
+<field name="name">Acceso a aportaciones</field>
+</record>
+
+<record id="group_management_prestamo" model="res.groups">
+<field name="category_id" ref="module_loan_management"/>
+<field name="name">Gestión de prestamo</field>
+</record>
+
+<record id="group_management_prestamo_user" model="res.groups">
+<field name="category_id" ref="module_loan_management"/>
+<field name="name">Gestión de prestamo usuario restringido</field>
+</record> 
+
+<record id="group_management_documento" model="res.groups">
+<field name="category_id" ref="module_loan_management"/>
+<field name="name">Gestión de documentos</field>
+</record>
+
+<record id="group_management_cuotas" model="res.groups">
+<field name="category_id" ref="module_loan_management"/>
+<field name="name">Gestión de cuotas</field>
+</record>
+
+
+<record id="group_management_retiros" model="res.groups">
+<field name="category_id" ref="module_loan_management"/>
+<field name="name">Gestión de retiros</field>
+</record>
+
+<record id="group_management_gastos" model="res.groups">
+<field name="category_id" ref="module_loan_management"/>
+<field name="name">Gestión de Gastos</field>
+</record>
+
+
+<record id="group_configuration" model="res.groups">
+<field name="category_id" ref="module_loan_management"/>
+<field name="name">Acceso a configuración</field>
+</record>
+
+
+</data>
+</openerp>
+
+

@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+<template id="report_facturas_view_document">
+<t t-call="report.external_layout">
+<t t-foreach="docs" t-as="o">
+   <div class="page">
+	      <div class="row">
+			<div class="col-xs-5 col-xs-offset-7">
+                           <h4><span t-field="o.name"/></h4>
+                        </div>
+	       </div> 	   
+		 <p><strong>
+                        Documento: Estado de cuenta del cliente</strong><br/>
+                    </p>
+		<br/>
+		  <p>	
+                         Estimado/a señor/señora, Nuestros registros indican que algunos pagos en nuestra cuenta están aún pendientes.         				 Puede encontrar los detalles a continuación. Si la cantidad ha sido ya pagada, por favor, descarte esta notificación. 				 En otro caso, por favor remítanos el importe total abajo indicado. Si tiene alguna pregunta con respecto a su cuenta, 				 por favor contáctenos. Gracias de antemano por su colaboración. Saludos cordiales.
+			</p>
+			 <p>	
+                         Facturas Vencidas
+			</p>
+			<p><strong>Total Adeudado: <span t-field="o.monto_vencido"/> LPS</strong></p>   
+
+			<t t-set="total_x_invoice" t-value="0"/>
+			<t t-if="rango(o,30)">
+			<table class="table table-condensed" style="margin-top: 50px;">
+                            <thead>
+                                <tr>
+				    <th>No. Factura</th>	
+                                    <th>Fecha de factura</th>
+                                    <th>Fecha de Vencimiento</th>
+				    <th>Referencia</th>	
+                                    <th class="text-center">Importe Abonado</th>
+                                    <th class="text-center">Saldo pendiente</th>
+				    <th class="text-center">Total de factura</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+				<!--rango de 0-30-->
+				<h3>Mora 30</h3>
+					    <tr t-foreach="o.facturas_ids" t-as="a">
+						<t t-if="get_rango(a,30)">
+						    <td><span t-field="a.number"/></td>	
+				                    <td><span t-field="a.date_invoice"/></td>
+						    <td><span t-field="a.date_due"/></td>
+						    <td><span t-field="a.origin"/></td>
+						    <td class="text-center"><span t-field="a.importe_abonado"/></td>
+						    <td class="text-center"><span t-field="a.residual"/></td>
+						    <td class="text-center"><span t-field="a.amount_total"/></td>
+						<t t-set="total_x_invoice" t-value="suma(total_x_invoice,a.amount_total)"/>
+					    </t>
+                                	</tr>
+					<tr>
+					    <td></td>	
+				            <td></td>
+					    <td></td>
+					    <td></td>
+					    <td class="text-center"></td>
+					    <td class="text-center"></td>
+					    <td class="text-center"><strong><p>Total: <span t-esc="total_x_invoice"/></p></strong></td>
+					</tr>
+                            </tbody>
+                        </table>
+			</t>
+			
+			<t t-set="total_x_invoice" t-value="0"/>
+			<t t-if="rango(o,60)">
+			<table class="table table-condensed" style="margin-top: 50px;">
+                            <thead>
+                                <tr>
+				    <th>No. Factura</th>	
+                                    <th>Fecha de factura</th>
+                                    <th>Fecha de Vencimiento</th>
+				    <th>Referencia</th>	
+                                    <th class="text-center">Importe Abonado</th>
+                                    <th class="text-center">Saldo pendiente</th>
+				    <th class="text-center">Total de factura</th>
+                                </tr>
+                            </thead>
+			 
+                            <tbody>
+				<!--rango de 30-60-->
+				<h3>Mora 60</h3>
+				<tr t-foreach="o.facturas_ids" t-as="a">
+					    <t t-if="get_rango(a,60)">
+						    <td><span t-field="a.number"/></td>	
+				                    <td><span t-field="a.date_invoice"/></td>
+						    <td><span t-field="a.date_due"/></td>
+						    <td><span t-field="a.origin"/></td>
+						    <td class="text-center"><span t-field="a.importe_abonado"/></td>
+						    <td class="text-center"><span t-field="a.residual"/></td>
+						    <td class="text-center"><span t-field="a.amount_total"/></td>
+					            <t t-set="total_x_invoice" t-value="suma(total_x_invoice,a.amount_total)"/>
+						 </t>
+						
+                                </tr>
+				<tr>
+					    <td></td>	
+				            <td></td>
+					    <td></td>
+					    <td></td>
+					    <td class="text-center"></td>
+					    <td class="text-center"></td>
+					    <td class="text-center"><strong><p>Total: <span t-esc="total_x_invoice"/></p></strong></td>
+				</tr>
+				</tbody>
+                        </table>
+			</t>
+			
+			<t t-set="total_x_invoice" t-value="0"/>
+			 <t t-if="rango(o,90)">
+			<table class="table table-condensed" style="margin-top: 50px;">
+                            <thead>
+                                <tr>
+				    <th>No. Factura</th>	
+                                    <th>Fecha de factura</th>
+                                    <th>Fecha de Vencimiento</th>
+				    <th>Referencia</th>	
+                                    <th class="text-center">Importe Abonado</th>
+                                    <th class="text-center">Saldo pendiente</th>
+				    <th class="text-center">Total de factura</th>
+                                </tr>
+                            </thead>
+			 
+                            <tbody>
+				<!--rango de 60-90-->
+				 <h3>Mora 90</h3>
+				<tr t-foreach="o.facturas_ids" t-as="a">
+					    <t t-if="get_rango(a,90)">
+						     <td><span t-field="a.number"/></td>	
+				                    <td><span t-field="a.date_invoice"/></td>
+						    <td><span t-field="a.date_due"/></td>
+						    <td><span t-field="a.origin"/></td>
+						    <td class="text-center"><span t-field="a.importe_abonado"/></td>
+						    <td class="text-center"><span t-field="a.residual"/></td>
+						    <td class="text-center"><span t-field="a.amount_total"/></td>
+						    <t t-set="total_x_invoice" t-value="suma(total_x_invoice,a.amount_total)"/>
+					    </t>
+                                </tr>
+				<tr>
+					    <td></td>	
+				            <td></td>
+					    <td></td>
+					    <td></td>
+					    <td class="text-center"></td>
+					    <td class="text-center"></td>
+					    <td class="text-center"><strong><p>Total: <span t-esc="total_x_invoice"/></p></strong></td>
+				</tr>
+			 </tbody>
+                        </table>
+			</t>
+			
+			<t t-set="total_x_invoice" t-value="0"/>
+			<t t-if="rango(o,120)">
+			<table class="table table-condensed" style="margin-top: 50px;">
+                            <thead>
+                                <tr>
+				    <th>No. Factura</th>	
+                                    <th>Fecha de factura</th>
+                                    <th>Fecha de Vencimiento</th>
+				    <th>Referencia</th>	
+                                    <th class="text-center">Importe Abonado</th>
+                                    <th class="text-center">Saldo pendiente</th>
+				    <th class="text-center">Total de factura</th>
+                                </tr>
+                            </thead>
+			 	 <tbody>
+				<h3>Mora 120</h3>
+				<tr t-foreach="o.facturas_ids" t-as="a">
+					 <t t-if="get_rango(a,120)">
+						    <td><span t-field="a.number"/></td>	
+				                    <td><span t-field="a.date_invoice"/></td>
+						    <td><span t-field="a.date_due"/></td>
+						    <td><span t-field="a.origin"/></td>
+						    <td class="text-center"><span t-field="a.importe_abonado"/></td>
+						    <td class="text-center"><span t-field="a.residual"/></td>
+						    <td class="text-center"><span t-field="a.amount_total"/></td>
+						    <t t-set="total_x_invoice" t-value="suma(total_x_invoice,a.amount_total)"/>
+					</t>
+                                </tr>
+					</tbody>
+		                </table>
+			</t>
+			
+			<t t-set="total_x_invoice" t-value="0"/>
+			<t t-if="rango(o,-1)">
+			<table class="table table-condensed" style="margin-top: 50px;">
+                            <thead>
+                                <tr>
+				    <th>No. Factura</th>	
+                                    <th>Fecha de factura</th>
+                                    <th>Fecha de Vencimiento</th>
+				    <th>Referencia</th>	
+                                    <th class="text-center">Importe Abonado</th>
+                                    <th class="text-center">Saldo pendiente</th>
+				    <th class="text-center">Total de factura</th>
+                                </tr>
+                            </thead>
+			 	 <tbody>
+				<h3>120 o Más</h3>
+				<tr t-foreach="o.facturas_ids" t-as="a">
+					 <t t-if="get_rango(a,-1)">
+						    <td><span t-field="a.number"/></td>	
+				                    <td><span t-field="a.date_invoice"/></td>
+						    <td><span t-field="a.date_due"/></td>
+						    <td><span t-field="a.origin"/></td>
+						    <td class="text-center"><span t-field="a.importe_abonado"/></td>
+						    <td class="text-center"><span t-field="a.residual"/></td>
+						    <td class="text-center"><span t-field="a.amount_total"/></td>
+						    <t t-set="total_x_invoice" t-value="suma(total_x_invoice,a.amount_total)"/>
+					</t>
+                                </tr>
+				<tr>
+					    <td></td>	
+				            <td></td>
+					    <td></td>
+					    <td></td>
+					    <td class="text-center"></td>
+					    <td class="text-center"></td>
+					    <td class="text-center"><strong><p>Total: <span t-esc="total_x_invoice"/></p></strong></td>
+				</tr>
+                            </tbody>
+                        </table>
+			</t>
+			
+			<p>Total Adeudado: <span t-field="o.monto_vencido"/> LPS</p>   
+                   
+   </div> 
+      <!-- Esta etiqueta del footer es la que no funciona -->
+</t>
+</t>
+</template>
+
+<template id="report_contract_view">
+        <t t-call="report.html_container">
+            <t t-foreach="docs" t-as="doc">
+            <t t-raw="translate_doc(doc_id, doc_model,'partner_id.lang','contratos.report_contract_view_document')"/>
+            </t>
+        </t>
+</template>
+</data>
+</openerp>

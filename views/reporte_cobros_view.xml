@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+    	
+    	 <record model="ir.ui.view" id="loan_forcast_cuotas_graph">
+            <field name="name">loan.forcast.cuotas.graph</field>
+            <field name="model">loan.forcast.cuotas</field>
+            <field name="arch" type="xml">
+                <graph string="Resumen" type="bar">
+                    <field name="partner_id" type="row"/>
+                    <field name="monto_cuota" type="measure"/>
+                </graph>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="loan_forcast_cuotas_tree">
+            <field name="name">loan.forcast.cuotas.tree</field>
+            <field name="model">loan.forcast.cuotas</field>
+            <field name="arch" type="xml">
+                <tree string="Resumen" delete="0" create="0" colors="red:state =='morosa';green:state == 'vigente'; blue:state == 'novigente'">
+                	<field name="prestamo_id" />
+                    <field name="partner_id" />
+                    <field name="fecha_pago" />
+                    <field name="numero_cuota"/>
+                    <field name="monto_cuota" sum="Total"/>
+                    <field name="saldo_prestamo" sum="Total"/>
+                   
+                    <field name="state" />
+                </tree>
+            </field>
+        </record>
+
+		<record id="loan_forcast_cuotas_action" model="ir.actions.act_window">
+		    <field name="name">Resumen de Creditos</field>
+		    <field name="res_model">loan.forcast.cuotas</field>
+		    <field name="view_type">form</field>
+		    <field name="view_mode">tree,graph</field>
+			<field name="domain">[('treasury_id','=',active_id)]</field>
+		    
+		</record>
+
+
+<!-- FIN DEL BLOQUE -->
+
+        <record model="ir.ui.view" id="loan_forecast_search_view">
+            <field name="name">loan.forecast.search.view</field>
+            <field name="model">loan.forecast</field>
+            <field name="arch" type="xml">
+                <search string="Treasury Forecast">
+                    <field name="name" />
+                    <field name="start_date" />
+                    <field name="end_date" />
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="loan_forecast_tree_view">
+            <field name="name">loan.forecast.tree</field>
+            <field name="model">loan.forecast</field>
+            <field name="arch" type="xml">
+                <tree string="Proyección de cobros">
+                    <field name="start_date" />
+                    <field name="end_date" />
+		    		<field name="currency_id"/>
+                </tree>
+            </field>
+        </record>
+
+
+
+
+	<record id="action_loan_forecast_form" model="ir.actions.act_window">
+		    <field name="name">Proyección de Cobros</field>
+		    <field name="res_model">loan.forecast</field>
+		    <field name="view_type">form</field>
+		    <field name="view_mode">tree,form</field>
+		    <field name="help">Analisis de Ventas</field>
+            <field name="domain">[('es_reporte_mora','=',0)]</field>
+	</record>
+
+
+	<record model="ir.ui.view" id="loan_forecast_form_view">
+        <field name="name">loan.forecast.form</field>
+        <field name="model">loan.forecast</field>
+        <field name="arch" type="xml">
+        <form string="Flujo de Efectivo">
+         <header>
+			<button name="action_draft" type="object" string="Borrador" states="progress"/>
+			<button name="action_done" type="object" string="Finalizado" states="draft,progress" class="oe_highlight oe_read_only"/>
+			<button name="button_calculate" type="object" string="Obtener datos" states="draft" class="oe_highlight"/>
+			<field name="state" widget="statusbar" nolabel="1"/>
+       	</header>
+         <sheet>		       
+		 <div class="oe_button_box" name="button_box">
+             <button class="oe_stat_button"
+					icon="fa-strikethrough"
+                    type="action" name="%(loan_forcast_cuotas_action)d"
+                    string="Cuotas a cobrar">
+            </button>
+         </div>
+	  	<!--<separator string="Rango de Fechas"/> -->    
+        <group colspan="4" col="4">
+            <group colspan="4">
+				<group cols="2">          
+			 		<field name="start_date" attrs="{'readonly': [('state','!=','draft')], 'required': [('es_reporte_mora','=', False)]
+                        , 'invisible': [('es_reporte_mora','=',True)]}"/>
+ 					<field name="currency_id" />  
+				</group>
+			<group cols="2">
+                  <field name="end_date" attrs="{'readonly': [('state','!=','draft')], 'required': [('es_reporte_mora','=', False)]
+                        , 'invisible': [('es_reporte_mora','=',True)]}"/>	
+                  <field name="name" attrs="{'readonly': [('state','!=','draft')]}"/>
+                  <field name="es_reporte_mora" invisible="1"/>
+			</group>
+        </group>		
+	     <separator string="Resumen de Operaciones"/>
+  			<group colspan="4" col="2">				             
+				<group cols="2">
+			 		  <field name="total_proy" />
+				</group>  
+				<group cols="2">
+				    <field name="numero_cuotas" />
+				</group>											
+			</group>
+					    
+   <notebook colspan="4">  
+	<page string="Proyección de cobros">
+		<separator string="Cuotas"/>	
+
+		<field name="cuotas_ids" />
+	</page> 
+   </notebook>
+       
+    <group colspan="4">               
+ 
+    </group>
+        </group>
+		</sheet>
+    </form>
+    </field>
+    </record>
+
+
+    <record id="action_loan_forecast_mora" model="ir.actions.act_window">
+            <field name="name">Reporte de Mora</field>
+            <field name="res_model">loan.forecast</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help">Reporte de Mora</field>
+            <field name="domain">[('es_reporte_mora','=',1)]</field>
+            <field name="context">{'default_es_reporte_mora':1}</field>
+    </record>
+
+
+	 <menuitem id="loan_management_reportes" name="Reportes" string="Reportes" parent="loan_management_main" sequence="20"/>
+
+    <menuitem action="action_loan_forecast_form" id="menu_loan_cobros_form"
+            name="Proyección de cobros" parent="loan_management_reportes" />
+
+    <menuitem action="action_loan_forecast_mora" id="menu_loan_mora"
+            name="Reporte de Mora" parent="loan_management_reportes"/>
+
+
+
+     <record model="ir.ui.view" id="loan_pagos_graph">
+            <field name="name">loan.pagos.graph</field>
+            <field name="model">loan.pagos</field>
+            <field name="arch" type="xml">
+                <graph string="Resumen" type="bar">
+                    <field name="cliente_id" type="row"/>
+                    <field name="importe_pagado" type="measure"/>
+                </graph>
+            </field>
+        </record>
+
+
+     <record model="ir.ui.view" id="loan_pagos_search">
+       <field name="name">loan.pagos.search</field>
+       <field name="model">loan.pagos</field>
+       <field name="arch" type="xml">
+        <search string ='Buscar'>
+            <field name="cliente_id" operator="child_of" string="Buscar por Cliente"/>
+            <field name="fecha" string="Buscar por fecha"/>
+         <separator/>
+         <field name="cliente_id"/>
+        <group expand="0" string="Agrupado por">
+             <filter string="Cliente" domain="[]" context="{'group_by':'cliente_id'}"/>
+          <filter string="Mes"  domain="[]" context="{'group_by':'fecha'}"/>    
+         </group>     
+      </search>
+    </field>
+  </record>
+
+
+    <record model="ir.ui.view" id="loan_pagos_tree">
+            <field name="name">loan.pagos.tree</field>
+            <field name="model">loan.pagos</field>
+            <field name="arch" type="xml">
+                <tree string="Resumen" delete="0" create="0" colors="red:state =='cancelado';green:state == 'done'; blue:state == 'borrador'">
+                    <field name="cliente_id" readonly="1"/>
+            <field name="fecha" readonly="1"/>
+            <field name="importe_pagado" readonly="1" sum="Total"/>
+            <field name="cuotas" readonly="1"/>
+            <field name="state" readonly="1"/> 
+            <field name="asiento_id" readonly="1"/> 
+            <field name="observaciones" readonly="1"/>
+                </tree>
+            </field>
+        </record>
+
+
+     <record id="action_loan_forecast_pagos" model="ir.actions.act_window">
+            <field name="name">Reporte de pagos</field>
+            <field name="res_model">loan.pagos</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,graph</field>
+            <field name="help">Reporte de pagos</field>
+    </record>
+
+
+    <menuitem action="action_loan_forecast_pagos" id="menu_loan_pagos"
+            name="Pagos" parent="loan_management_reportes"/>
+
+    </data>
+</openerp>

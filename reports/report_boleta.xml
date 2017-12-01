@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+    <report
+        id="report_boleta_pago"
+        model="loan.wizard.payment"
+        string="Boleta de pago"
+        name="loan_management.report_boleta_pago_view"
+        file="loan_management.report_boleta_pago_view"
+        report_type="qweb-pdf" />
+</data>
+</openerp>
+

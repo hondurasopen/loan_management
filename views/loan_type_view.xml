@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+   <data>
+  <!-- Vista Formulario Presamo-->
+   <record model="ir.ui.view" id="loan_management_loan_type_form_view">
+   <field name="name">loan.management.loan.type.form</field>
+   <field name="model">loan.management.loan.type</field>
+   <field name="arch" type="xml">
+     <form string="Tipo de Prestamo">				
+          <sheet>  
+           <h1>
+              <field name="name" placeholder="Nombre de prestamo ..." class="oe_inline"/>
+          </h1>
+          <group colspan="4">
+               <group cols="2">   
+               	<field name="monto_maximo"/>         
+               <field name="tasa_interes_id"/>
+	      </group>
+	      <group cols="2">
+             <field name="plazo_pago_id" />
+	            <field name="active" />
+              <field name="metodo_calculo" />
+	      </group>
+	   </group>		
+	      <notebook>
+	      <page string="Contabilidad">
+          <separator string="Configuración de cuentas"/>
+         <group colspan="4">
+           <group cols="2"> 
+            <field name="cuenta_ingreso" />
+            <field name="cuenta_intereses_mora" />
+            <field name="cuenta_intereses" />
+         </group>
+			<group cols="2">
+				<field name="porcentaje_aportacion" />
+				<p><strong>Este porcentaje se deducira del desembolso del prestamo. </strong></p>
+			</group>
+            </group> 
+			
+		<group colspan="4">
+           <group cols="2"> 
+				<field name="cuenta_seguro" required="1"/>
+			</group>
+			<group cols="2"> 
+				<field name="porcentaje_seguro"/>
+			</group>
+        </group> 		
+
+	      </page> 
+	</notebook>
+  <field name="description" placeholder="Notas generales  ..."/>
+	</sheet> 
+	   <div class="oe_chatter">
+            <field name="message_ids" widget="mail_thread"/>
+        </div>  
+     </form>
+   </field> 
+   </record> 
+   <!-- Fin de Vista form  -->
+   <!--  Vista Tree Tipo de Prestamo-->
+   <record model="ir.ui.view" id="loan_management_loan_type_tree_view">
+   <field name="name">loan.management.loan.type.tree</field>
+   <field name="model">loan.management.loan.type</field>
+   <field name="arch" type="xml">
+       <tree string="Tipo de Prestamos">
+             <field name="name"/>
+             <field name="tasa_interes_id"/>
+             <field name="monto_maximo"/>
+             <field name="plazo_pago_id"/>
+       </tree>
+   </field> 
+   </record>
+   <!--  Accion para Prestamos -->
+   <record model="ir.actions.act_window" id="loan_management_loan_type_action">
+   <field name="name">Tipo de prestamo</field>
+   <field name="res_model">loan.management.loan.type</field>
+   <field name="view_type">form</field>
+   <field name="view_model">form</field>
+   <field name="help" type="html">
+   <p class="oe_view_nocontent_create">Crear primer prestamo</p>
+   </field>
+   </record>
+   <!-- Fin de Action de Contratos -->
+     <!--  Menu Principal de Prestamos-->
+      <menuitem id="loan_management_configuration" name="Configuracion" string="Configuracion" parent="loan_management_main"  sequence="1000"/>
+   <menuitem string="Tipo de Prestamo"  id="menu_tipo_prestamo" parent="loan_management_configuration" action="loan_management_loan_type_action" sequence="50"/>
+   </data>
+</odoo>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<data>
+
+    <record id="wizard_generar_status_cuotas" model="ir.ui.view">
+        <field name="name">Generar Cartea de Cuotas</field>
+        <field name="model">loan.wizard.generar.cuotas</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+        <form string="Cuotas de Prestamo">
+            <sheet>
+            <!--<separator string="Pago de Prestamo"/>-->
+                <group>
+                    <group>
+                        <field name="date_generation" />
+                    </group>
+                    <group>
+                      
+                     </group>
+                </group>
+           
+            <group colspan="4">  
+    <p><strong>Se generarán la cartera de cuotas de prestamos a cobrar, este se debe de realizar diariamente.</strong></p>
+            </group>
+         <footer>
+            <button name="generar_status_cuotas" string="Generar Cobranzas" type="object" class="oe_highlight"/>
+            <button class="oe_highlight" special="cancel" string="Cancel"/>
+        </footer>
+        </sheet>
+        </form>
+        </field>
+    </record>
+
+    <record id="action_wizard_status_cuotas" model="ir.actions.act_window">
+            <field name="name">Generar Cartera de Cobros</field>
+            <field name="res_model">loan.wizard.generar.cuotas</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="wizard_generar_status_cuotas"/>
+            <field name="target">new</field>
+    </record>
+
+    <menuitem string="Generar Carte de Cobros"  id="menu_generar_cartera_cobros" parent="loan_cuota_management" action="action_wizard_status_cuotas"  sequence="20"/>
+     
+
+</data>
+</odoo>

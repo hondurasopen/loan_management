@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+    <report
+        id="report_retiro"
+        model="loan.retiros"
+        string="Retiro de aportaciones"
+        name="loan_management.report_retiro_view"
+        file="loan_management.report_retiro_view"
+        report_type="qweb-pdf" />
+</data>
+</openerp>
+

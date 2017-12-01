@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+   <data>
+  <!-- Vista Formulario Mora-->
+   <record model="ir.ui.view" id="loan_management_tipo_gasto_form_view">
+   <field name="name">loan.tipos.gastos.form</field>
+   <field name="model">loan.tipos.gastos</field>
+   <field name="arch" type="xml">
+     <form string="Tipo de gasto">				
+          <sheet>  
+           <h1>
+              <field name="name" placeholder="Nombre de gastos administrativos ..." class="oe_inline"/>
+          </h1>
+          <group colspan="4">
+          <group cols="2">            
+               <field name="cuenta_id"/>
+	      </group>
+	      <group cols="2">
+				<field name="importe_gasto"/>
+	            <field name="activo" />
+	      </group>
+	   </group>		
+    <notebook>
+      <page string="Observaciones">
+     		<field name="observaciones" />
+      </page> 
+    </notebook>
+	</sheet>   
+     </form>
+   </field> 
+   </record> 
+   <!-- Fin de Vista form  -->
+   <!--  Vista -->
+   <record model="ir.ui.view" id="management_loan_tipo_gasto_tree_view">
+   <field name="name">loan.tipos.gastos.tree</field>
+   <field name="model">loan.tipos.gastos</field>
+   <field name="arch" type="xml">
+       <tree string="Tipos de gastos">
+             <field name="name"/>
+             <field name="activo"/>
+       </tree>
+   </field> 
+   </record>
+   <!--  Accion para Prestamos -->
+   <record model="ir.actions.act_window" id="loan_management_tipo_gasto_action">
+   <field name="name">Tipos de gastos</field>
+   <field name="res_model">loan.tipos.gastos</field>
+   <field name="view_type">form</field>
+   <field name="view_model">form,tree</field>
+   <field name="help" type="html">
+   <p class="oe_view_nocontent_create">Crear primer tipo de gasto</p>
+   </field>
+   </record>
+   <!-- Fin de Action de Contratos -->
+     <!--  Menu Principal de Prestamos-->
+   <menuitem string="Tipos de gastos" id="menu_tasa_tipo_gasto" parent="loan_management_configuration" action="loan_management_tipo_gasto_action" sequence="50" groups="loan_management.group_management_gastos"/>
+
+   </data>
+</odoo>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

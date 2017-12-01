@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<data>
+
+    <record id="wizard_set_payment_prestamos" model="ir.ui.view">
+        <field name="name">Pago de cuotas</field>
+        <field name="model">loan.wizard.payment</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+        <form string="Cuotas de Prestamo">
+    <header>
+    <button name="set_borrador" type="object" string="Cambiar a Borrador" states="saldo,cancelada" class="oe_highlight"/>
+    <button name="generarsaldos" type="object" string="Revisar Saldos" states="borrador" class="oe_highlight"/>
+    <!--<button name="set_pagos" type="object" string="Realizar pagos" states="saldo" class="oe_highlight"/>-->
+    <button name="liquidar_prestamo" type="object" string="Liquidar Prestamo (Capital)" states="saldo" class="oe_highlight"/>
+    <!--<button name="set_cancelar" type="object" string="Cancelar Pago" states="pagada" class="oe_highlight"/>-->
+     <field name="state" widget="statusbar" nolabel="1"/>
+    </header>
+            <sheet>
+            <!--<separator string="Pago de Prestamo"/>-->
+                <group>
+                    <group>
+                        <field name="prestamo_id" required="1" attrs="{'readonly': [('state','=','pagada')]}"/>
+                    </group>
+                    <group>
+                        <field name="date_payment" attrs="{'readonly': [('state','=','pagada')]}"/>
+                        <field name="capital_prestamo" attrs="{'invisible': [('state','!=','saldo')]}"/>
+                         <field name="saldo_pendiente_prestamo" invisible="1"/>
+                         <field name="liquidar_capital" />
+                     </group>
+                </group>
+            <separator string="Cuota a pagar"/>
+            <group colspan="4">  
+                <group cols="2">
+                    <field name="journal_id" attrs="{'readonly': [('state','=','pagada')]}" options="{'no_create': True}"/>
+                    <field name="monto" attrs="{'readonly': [('state','=','pagada')]}"/>
+					<field name="record_aportaciones" attrs="{'readonly': [('state','=','pagada')]}"/>
+					<field name="monto_aportacion" attrs="{'invisible': [('record_aportaciones','=', False)], 'required':[('record_aportaciones','=', True)], 'readonly': [('state','=','pagada')]}"/>
+					<field name="monto_ahorro" attrs="{'invisible': [('record_aportaciones','=', False)], 'required':[('record_aportaciones','=', True)], 'readonly': [('state','=','pagada')]}"/>
+					<field name="aport_id" attrs="{'invisible': [('record_aportaciones','=', False), ('state','=','borrador')]}"/>
+<field name="ahorro_id" attrs="{'invisible': [('record_aportaciones','=', False), ('state','=','borrador')]}"/>
+					<field name="total_transaction"  />
+                     <field name="existe_cuota_morosa" invisible="1"/>
+                     <field name="has_revision_saldo" invisible="1"/>  
+                    <field name="currency_id" invisible="1"/> 
+                     <button name="generarsaldos" class="oe_highlight" string="Revisar Saldo" type="object" attrs="{'invisible': [('state','!=','borrador')]}"/>
+                </group>
+                <group cols="2">
+                    <field name="saldo_pago"/>
+                    <field name="monto_vigente"/>
+                    <field name="numero_cuota" />
+                    <field name="saldo_mora"/>
+                    <!--<field name="cuotas_mora_num" widget="many2many_tags" options="{'no_create_edit': True}"/>-->
+
+                     <button name="set_pagos" class="oe_highlight" string="Realizar pago" type="object" attrs="{'invisible': ['|', ('state','!=','saldo'), ('liquidar_capital', '=', True)]}"/>
+                </group>
+            </group>
+            <group colspan="4">  
+                <p  attrs="{'invisible': ['|', ('state','in',['borrador', 'cancelada', 'pagada']), ('saldo_pago', '!=', 0)]}"><strong>NO EXISTE SALDOS PENDIENTES REALIZARÁ ABONO(S) A CAPITAL.</strong></p>
+            </group>
+            <notebook>
+                <page string="Detalle de Saldos">
+                    <field name="cuotas_ids">
+                    <tree readonly="1" create="0" delete="0">
+                        <field name="numero_cuota"/>
+                        <field name="fecha_pago" readonly="1"/>
+                        <field name="monto_cuota" sum="Total" readonly="1"/>
+                        <field name="mora" sum="Total" readonly="1"/>
+                        <field name="saldo_pendiente" sum="Total" readonly="1"/>
+                        <field name="state" readonly="1"/>
+                         <field name="currency_id" invisible="1"/> 
+                    </tree>
+                    </field>
+                </page>
+                <page string="Observaciones">
+                    <field name="notas" placeholder="Escriba observaciones acerca de este pago"/>
+                </page>
+            </notebook>
+        </sheet>
+         <div class="oe_chatter">
+            <field name="message_ids" widget="mail_thread"/>
+        </div>
+        </form>
+        </field>
+    </record>
+
+    <record id="action_wizard_pago_cuota_prestamo" model="ir.actions.act_window">
+            <field name="name">Pago de Cuotas</field>
+            <field name="res_model">loan.wizard.payment</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="domain">[('prestamo_id','=',active_id)]</field>
+            <field name="view_id" ref="wizard_set_payment_prestamos"/>
+            <!--<field name="target">new</field>-->
+    </record>
+
+</data>
+</odoo>

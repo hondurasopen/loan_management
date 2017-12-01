@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+   <data>
+
+    <record id="view_loan_management_calendar" model="ir.ui.view">
+            <field name="name">loan.management.loan.calendar</field>
+            <field name="model">loan.management.loan</field>
+            <field name="arch" type="xml">
+                <calendar string="Prestamos" color="afiliado_id" date_start="fecha_solicitud">
+                    <field name="afiliado_id"/>
+                    <field name="monto_solicitado"/>
+                </calendar>
+            </field>
+        </record>
+
+    <record model="ir.ui.view" id="loan_management_loan_search">
+       <field name="name">loan.management.loan.search</field>
+       <field name="model">loan.management.loan</field>
+       <field name="arch" type="xml">
+        <search string ='Buscar'>
+            <field name="afiliado_id" operator="child_of" string="Buscar por Cliente"/>
+            <field name="fecha_solicitud" string="Buscar por fecha de solicitud"/>
+         <separator/>
+         <field name="afiliado_id"/>
+        <group expand="0" string="Agrupado por">
+             <filter string="Cliente" domain="[]" context="{'group_by':'afiliado_id'}"/>
+          <filter string="Mes"  domain="[]" context="{'group_by':'fecha_solicitud'}"/>    
+         </group>     
+      </search>
+    </field>
+  </record>
+
+  <record model="ir.ui.view" id="loan_management_loan_graph">
+      <field name="name">loan.management.loan.graph</field>
+      <field name="model">loan.management.loan</field>
+      <field name="arch" type="xml">
+          <graph string="Resumen" type="bar">
+              <field name="afiliado_id" />
+              <field name="tipo_prestamo_id" type="row"/>
+              <field name="total_monto" type="measure"/>
+          </graph>
+      </field>
+  </record>
+  <!-- Vista Formulario Presamo-->
+   <record model="ir.ui.view" id="loan_management_loan_form_view">
+   <field name="name">loan.management.loan.form</field>
+   <field name="model">loan.management.loan</field>
+   <field name="arch" type="xml">
+     <form string="Solicitud de prestamo">
+         <header>
+   <button name="action_borrador" type="object" string="Cotizacion" states="rechazado,progress"  class="oe_highlight"/>  
+  <button name="action_rechazar" type="object" string="Rechazar prestamo" groups="loan_management.group_aprobar_prestamos" states="cotizacion,aprobado,progress,desembolso" />
+  <button name="action_solicitar_aprobacion"  type="object" string="Solicitar aprobacion" states="cotizacion" class="oe_highlight"/>
+  <button name="action_aprobar" type="object" string="Aprobar prestamo" groups="loan_management.group_aprobar_prestamos" states="progress" class="oe_highlight"/>
+    <button name="action_desembolso" type="object" string="Realizar desembolso" states="aprobado" class="oe_highlight"/>
+    <button name="generar_contabilidad" type="object" string="Establecer prestamo como vigente" states="desembolso" class="oe_highlight"/>
+    <button name="%(action_wizard_pago_cuota_prestamo)d" type="action" string="Pagar Cuotas" states="progreso" class="oe_highlight"/>
+    <button name="adelantar_cuotas" type="object" string="Adelantar Cuota" states="progreso" groups="loan_management.group_adelantar_cuotas" class="oe_highlight"/>
+        <field name="state" widget="statusbar" nolabel="1"/>
+         </header>
+          <sheet>   
+           <h1>
+              <field name="name" placeholder="Numero de prestamo ..." class="oe_inline" attrs="{'readonly': [('state','!=','cotizacion')]}"/>
+          </h1>
+           <separator string="Información General"/>
+          <group colspan="4">
+               <group cols="2">   
+               	<field name="afiliado_id" attrs="{'readonly': [('state','!=','cotizacion')]}"/>
+                <field name="currency_id" invisible="1"/>
+               	<field name="fecha_solicitud" attrs="{'readonly': [('state','!=','cotizacion')]}"/>
+                <field name="fecha_aprobacion" attrs="{'required': [('state','in',['aprobado','desembolso'])]}"/> 
+<field name="prestamo_id" attrs="{'readonly': [('state','!=','cotizacion')], 'invisible': [('prestamo_refinanciado','=', False)], 'required': [('prestamo_refinanciado','=', True)]}" options="{'no_create': True}" domain="[('afiliado_id','=',afiliado_id), ('state', '=', 'progreso')]"/>
+               	<field name="tipo_prestamo_id" attrs="{'readonly': [('state','!=','cotizacion')]}" options="{'no_create': True}" />
+          </group>
+          <group cols="2"> 
+                <field name="prestamo_refinanciado" invisible="1"/>
+               	<field name="tasa_interes" attrs="{'readonly': [('state','!=','cotizacion')]}"/>
+                <field name="plazo_pago" attrs="{'readonly': [('state','!=','cotizacion')]}"/>
+                <field name="periodo_plazo_pago" readonly="1"/>
+                <field name="monto_solicitado" attrs="{'readonly': [('state','!=','cotizacion')]}"/>
+                <field name="saldo_prestamo_anterior"  attrs="{'invisible': [('prestamo_refinanciado','=', False)], 'required': [('prestamo_refinanciado','=', True)], 'readonly': [('state','!=','cotizacion')]}"/>
+                <field name="currency_id" invisible="1"/>
+         </group>
+        </group>
+        <notebook>
+        <page string="Plan de pago">
+          <group colspan="4">
+            <group cols="2"> 
+                <field name="total_interes" readonly="1"/>
+                <field name="cuato_prestamo" readonly="1"/>
+            </group> 
+            <group cols="2"> 
+              <field name="mora_id" options="{'no_create': True}"  attrs="{'required': [('state','in',['aprobado','desembolso', 'progreso'])]}"/>
+            <field name="fecha_pago" attrs="{'readonly': [('state','in',['progreso','liquidado'])]}" />
+            <button name="get_generar_cuotas" class="oe_highlight" attrs="{'invisible': [('state','!=','cotizacion')]}"
+                            string="Calcular plan de pago" type="object" />
+            <button name="%(action_wizard_pago_cuota_prestamo)d" class="oe_highlight" attrs="{'invisible': [('state','!=','progreso')]}"
+       string="Pagar Cuotas" type="action"/>
+                </group>   
+               </group>       
+                <field name="cuota_ids">
+                    <tree string="Plan de pago" editable="bottom" delete="0" colors="blue:state == 'novigente';green:state == 'vigente'; red:state == 'morosa'; gray:state == 'pagada'">
+                        <field name="numero_cuota" />
+                         <field name="fecha_pago" readonly="1"/>
+                         <field name="capital" readonly="1" sum="Total"/>
+                         <field name="interes" readonly="1" sum="Total"/>
+                         <field name="seguro" readonly="1" sum="Total"/>
+												
+                          <field name="monto_cuota" readonly="1" sum="Total"/>
+                          <field name="saldo_prestamo" readonly="1"/>
+                          <field name="state" readonly="1"/>
+                          <field name="mora" readonly="1" sum="Total"/>
+                          <field name="saldo_pendiente" readonly="1" sum="Total"/>
+                          <field name="currency_id" invisible="1"/>
+                    </tree>
+                </field>
+          </page>
+		<!--<page string="Mora y Montos">
+        <group colspan="4">
+            <group cols="2">
+				<field name="prestamo_done" invisible="1"/>
+            </group>
+        </group>
+        <separator string="Detalle de montos"/>
+         <group colspan="4">
+            <group cols="2">
+              <field name="total_monto" readonly="1"/>
+            </group>
+            <group cols="2">
+              <field name="saldo_pendiente"/>
+              <field name="mora_prestamo"/>
+            </group>
+        </group>
+       </page>-->
+      <!-- -->
+<page string="Mora y Montos">
+        <group colspan="4">
+            <group cols="2">
+        <field name="prestamo_done" invisible="1"/>
+            </group>
+        </group>
+        <separator string="Detalle del prestamo"/>
+         <group colspan="4">
+            <group cols="2">
+        <field name="fecha_vencimiento"/>
+              <field name="total_monto" readonly="1"/>
+              <field name= "total_capital"/>
+            </group>
+            <group cols="2">
+              <field name="saldo_pendiente"/>
+              <field name="mora_prestamo"/>
+        <field name="amount_total_text"/>
+            </group>
+        </group>
+       </page>
+
+      <!-- -->
+       <page string="Desembolso y Gastos" attrs="{'invisible': [('state','in',['cotizacion', 'progress', 'rechazado', 'aprobado'])]}">
+          <group colspan="4">
+          <group cols="2"> 
+              <field name="total_desembolso" readonly="1"/>
+              <field name="fecha_desembolso" attrs="{'readonly': [('state','!=','desembolso')], 'required': [('state','in',['desembolso', 'progreso', 'liquidado'])]}"/>
+ 				<field name="gastos_administrativos"/>
+				<field name="monto_aportacion" readonly="1"/>
+				<field name="aportacion_id" readonly="1"/>
+          </group>   
+          <group cols="2">  
+              <field name="journal_id" attrs="{'readonly': [('state','!=','desembolso')], 'required': [('state','in',['desembolso', 'progreso', 'liquidado'])]}" options="{'no_create': True}" />
+              <field name="referencia_desembolso" attrs="{'readonly': [('state','!=','desembolso')], 'required': [('state','in',['desembolso', 'progreso', 'liquidado'])]}"/>
+              <field name="move_id"/>
+          </group>     
+          </group>  
+			<p><strong>Seleccione los gastos para este prestamo, estos importes seran deducidos en el desembolso.</strong></p>
+            <field name="gastos_ids" attrs="{'readonly': [('state','!=','desembolso')]}">
+			<tree editable="bottom">
+				<field name="name" options="{'no_create': True}"/>
+				<field name="importe_gasto" sum="Total"/>
+			</tree>
+			</field>
+            <field name="notas_desembolso" placeholder="Notas de desembolso"/>
+      </page> 
+        <page string="Validacion de documentos">
+        <field name="doc_ids"  context="{'prestamo_id' : id }">
+        <tree string="Documentos">
+                 	 <field name="name"/>
+                 	  <field name="documento"/>
+                 	  <field name="nota"/>
+                 	  <field name="estado"/>
+                 	</tree>
+        </field>
+      </page> 
+       
+     <page string="Pagos de Prestamo" attrs="{'invisible': [('state','in',['cotizacion', 'progress', 'rechazado', 'aprobado'])]}">
+       <field name="pagos_ids">
+        <tree string="Pagos de cuotas" editable="bottom" delete="0" create="0">
+            <field name="cliente_id" readonly="1"/>
+            <field name="fecha" readonly="1"/>
+            <field name="importe_pagado" readonly="1" sum="Total"/>
+            <field name="cuotas" readonly="1"/>
+            <field name="state" readonly="1"/> 
+            <field name="asiento_id" readonly="1"/> 
+            <field name="observaciones" readonly="1"/>
+        </tree>
+        </field>
+      </page>
+      
+  	<page string="Notas Generales">
+		<field name="notas" placeholder="Notas generales de desembolso"/>
+	      </page> 
+	</notebook>
+    </sheet>
+    <div class="oe_chatter">
+            <field name="message_ids" widget="mail_thread"/>
+    </div>
+     </form>
+   </field> 
+   </record> 
+   <!-- Fin de Vista form  -->
+   <!--  Vista Tree Tipo de Prestamo-->
+   <record model="ir.ui.view" id="loan_management_loan_tree_view">
+   <field name="name">loan.management.loan.tree</field>
+   <field name="model">loan.management.loan</field>
+   <field name="arch" type="xml">
+       <tree string="Solicitud de Prestamos" colors="blue:state == 'cotizacion';green:state == 'progreso'; red:state == 'rechazado'; green:state == 'aprobado'">
+                <field name="name"/>
+                <field name="afiliado_id"/>
+                <field name="fecha_solicitud" />
+                <field name="fecha_aprobacion" /> 
+                <field name="monto_solicitado"/>
+                <field name="tasa_interes" />
+                <field name="total_monto"/>
+                <field name="saldo_pendiente" attrs="{'invisible': [('state','=','cotizacion')]}"/>
+                <field name="plazo_pago" />
+                <field name="state"/>
+                <field name="prestamo_moroso"/>
+       </tree>
+   </field> 
+   </record>
+   <!--  Accion para solicitud de Prestamos -->
+   <record model="ir.actions.act_window" id="loan_management_loan_action">
+   <field name="name">Solicitudes de prestamo</field>
+   <field name="res_model">loan.management.loan</field>
+   <field name="view_type">form</field>
+   <field name="view_mode">tree,form,graph,calendar</field>
+   <field name="help" type="html">
+   <p class="oe_view_nocontent_create">Crear primera solicitud de prestamo</p>
+   </field>
+   </record>
+   
+     <!--  Accion para solicitud de Prestamos -->
+   <record model="ir.actions.act_window" id="loan_prestamo_esperando_aprobacion_action">
+   <field name="name">Esperando aprobación</field>
+   <field name="res_model">loan.management.loan</field>
+   <field name="view_type">form</field>
+   <field name="view_mode">tree,form,graph,calendar</field>
+     <field name="domain">[('state','=','progress')]</field>
+   <field name="help" type="html">
+   <p class="oe_view_nocontent_create">Crear primera solicitud de prestamo</p>
+   </field>
+   </record>
+      
+     <!--  Accion para solicitud de Prestamos -->
+    <record model="ir.actions.act_window" id="loan_prestamo_aprobados_action">
+   <field name="name">Prestamos aprobados</field>
+   <field name="res_model">loan.management.loan</field>
+   <field name="view_type">form</field>
+   <field name="view_mode">tree,form,graph,calendar</field>
+     <field name="domain">[('state','=','aprobado')]</field>
+   <field name="help" type="html">
+   <p class="oe_view_nocontent_create">Crear primera solicitud de prestamo</p>
+   </field>
+   </record>
+   
+     <!--  Accion para solicitud de Prestamos -->
+    <record model="ir.actions.act_window" id="loan_prestamo_activos_action">
+   <field name="name">Prestamos Activos</field>
+   <field name="res_model">loan.management.loan</field>
+   <field name="view_type">form</field>
+   <field name="view_mode">tree,form,graph,calendar</field>
+     <field name="domain">['|',('state','=','progreso'),('state','=','desembolso') ]</field>
+   <field name="help" type="html">
+   <p class="oe_view_nocontent_create">Crear primera solicitud de prestamo</p>
+   </field>
+   </record>
+   
+      <!--  Accion para solicitud de Prestamos -->
+    <record model="ir.actions.act_window" id="loan_prestamo_rechazado_action">
+   <field name="name">Prestamos rechazados</field>
+   <field name="res_model">loan.management.loan</field>
+   <field name="view_type">form</field>
+   <field name="view_mode">tree,form,graph,calendar</field>
+     <field name="domain">[('state','=','rechazado')]</field>
+   <field name="help" type="html">
+   <p class="oe_view_nocontent_create">Crear primera solicitud de prestamo</p>
+   </field>
+   </record>
+
+    <!--  Accion para prestamos pagados -->
+    <record model="ir.actions.act_window" id="loan_prestamo_pagados_action">
+   <field name="name">Prestamos Pagados</field>
+   <field name="res_model">loan.management.loan</field>
+   <field name="view_type">form</field>
+   <field name="view_mode">tree,form,graph,calendar</field>
+     <field name="domain">[('state','=','liquidado')]</field>
+   <field name="help" type="html">
+   <p class="oe_view_nocontent_create">Crear primera solicitud de prestamo</p>
+   </field>
+   </record>
+   
+   <!--  Accion para gestión  de refinanciamiento -->
+    <record model="ir.actions.act_window" id="loan_prestamo_refinanciado_action">
+   <field name="name">Refinanciamiento</field>
+   <field name="res_model">loan.management.loan</field>
+   <field name="view_type">form</field>
+   <field name="view_mode">tree,form,graph,calendar</field>
+   <field name="domain">[('prestamo_refinanciado','=', True)]</field>
+   <field name="context">{'default_prestamo_refinanciado':1}</field>
+   <field name="help" type="html">
+   <p class="oe_view_nocontent_create">Crear primera solicitud de prestamo</p>
+   </field>
+   </record>
+
+   
+   <!-- Fin de Action de Contratos -->
+     <!--  Menu Principal de Prestamos-->
+      <menuitem id="loan_management_general" name="Prestamos" string="Gestion de Prestamos" parent="loan_management_main" sequence="1"/>
+
+      <menuitem id="loan_management_refi" name="Refinancimiento" string="Gestion de Refinancimiento" parent="loan_management_main" sequence="2"/>
+
+      <menuitem string="Prestamos Activos"  id="menu_prestamo_con_activos" parent="loan_management_general" action="loan_prestamo_activos_action" sequence="1"/>
+
+   <menuitem string="Solicitudes de Prestamo"  id="menu_solicitud_prestamo" parent="loan_management_general" action="loan_management_loan_action" sequence="2"/>
+
+    <menuitem string="Esperando aprobación"  id="menu_prestamo_esperando_aprobacion" parent="loan_management_general" action="loan_prestamo_esperando_aprobacion_action" sequence="10"/>
+
+     <menuitem string="Prestamos aprobados"  id="menu_prestamo_aprobados" parent="loan_management_general" action="loan_prestamo_aprobados_action" sequence="20"/>
+          
+    <menuitem string="Prestamos rechazado"  id="menu_prestamo_rechazado" parent="loan_management_general" action="loan_prestamo_rechazado_action" sequence="40"/>
+
+    <menuitem string="Prestamos Pagados" id="menu_prestamo_pagados" parent="loan_management_general" action="loan_prestamo_pagados_action" sequence="50"/>
+
+    <menuitem string="Refinanciar Préstamo" id="menu_prestamo_refinanciados" parent="loan_management_refi" action="loan_prestamo_refinanciado_action" sequence="10"/>
+
+   </data>
+</odoo>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

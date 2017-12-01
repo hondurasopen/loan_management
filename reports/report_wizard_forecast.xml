@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+    <report
+        id="report_wizard_proy"
+        model="loan.forecast"
+        string="Proyección de cobros"
+        name="loan_management.report_proy_cobros_forecast"
+        file="loan_management.report_proy_cobros_forecast"
+        report_type="qweb-pdf" />
+</data>
+</openerp>
+

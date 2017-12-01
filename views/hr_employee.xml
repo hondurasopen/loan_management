@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+	<record model="ir.ui.view" id="loan_management_human_form">
+        <field name="name">hr.employee.form.view.inh</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form" />
+   	 	<field name="arch" type="xml">
+			<field name="category_ids" position="after">
+    	 		<field name="otherid"/>
+			</field>
+   		</field> 
+   	</record>  
+    </data>
+</odoo>
+

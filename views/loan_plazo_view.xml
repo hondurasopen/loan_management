@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+   <data>
+  <!-- Vista Formulario de Plazo de interes-->
+   <record model="ir.ui.view" id="loan_management_plazo_form">
+   <field name="name">loan.management.loan.plazo.form</field>
+   <field name="model">loan.management.loan.plazo</field>
+   <field name="arch" type="xml">
+     <form string="Plazo de prestamos">				
+       <sheet>  
+       <separator string="Plazo de prestamos" />
+       <group colspan="4">
+		<group cols="2">  
+			<field name="name" readonly="1"/>
+			<field name="active"/>
+		</group>
+		<group cols="2"> 
+			<field name="tipo_plazo"/>
+		       <field name="numero_plazo"/>
+		</group>
+	    </group>		
+		</sheet>     
+     </form>
+   </field> 
+   </record>  
+   <!-- Fin de Vista form  -->
+  <!-- Vista Tree de prestamo-->
+<record model="ir.ui.view" id="loan_management_plazo_tree">
+   <field name="name">loan.management.loan.plazo.tree</field>
+   <field name="model">loan.management.loan.plazo</field>
+   <field name="arch" type="xml">
+       <tree string="Tiempo de Prestamo">
+                 <field name="name"/>
+		<field name="tipo_plazo"/>
+		       <field name="numero_plazo"/>
+		       <field name="active"/>
+       </tree>
+   </field> 
+   </record>
+
+   <!--  Accion para prestamo -->
+   <record model="ir.actions.act_window" id="loan_management_plazo_action">
+   <field name="name">Plazos de prestamos</field>
+   <field name="res_model">loan.management.loan.plazo</field>
+   <field name="view_type">form</field>
+   <field name="view_model">tree,form</field>
+   <field name="help" type="html">
+   <p class="oe_view_nocontent_create">Crear primer plazo de pago</p>
+   </field>
+   </record>
+
+<menuitem string="Plazo de prestamo" action="loan_management_plazo_action" id="loan_management_plazo" parent="loan_management_configuration" sequence="4"/>
+
+   </data>
+</odoo>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

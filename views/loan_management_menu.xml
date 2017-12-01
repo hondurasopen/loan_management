@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+ <menuitem id="loan_management_main" name="Prestamos" string="Gestion de Prestamos" web_icon="loan_management,static/description/icon.png"/>
+    </data>
+</odoo>
