@@ -11,18 +11,19 @@ class Retiros(models.Model):
     def get_currency(self):
         return self.env.user.company_id.currency_id.id
 
+    @api.one
+    @api.depends("cliente_id", "cliente_id.saldo_cliente")
     def get_saldo(self):
-        if self.cliente_id:
-            if self.cliente_id.saldo_cliente <= 0:
-                raise Warning(_('El afiliado no cuenta con fondos para realizar el retiro'))
+        if self.cliente_id and self.state == 'draft':
+            #f self.cliente_id.saldo_cliente <= 0:
+                #raise Warning(_('El afiliado no cuenta con fondos para realizar el retiro'))
             self.total_disponible = self.cliente_id.saldo_cliente
 
-    @api.onchange("cliente_id")
-    def onchange_saldo(self):
-        self.get_saldo()
+   
 
     currency_id = fields.Many2one("res.currency", "Moneda", domain=[('active', '=', True)], default=get_currency)
-    name = fields.Char("Número de retiro", default=lambda self: self.env['ir.sequence'].get('retiros'), states={'draft': [('readonly', False)]})
+    name = fields.Char("Número de aportación", default=lambda self: self.env['ir.sequence'].get('retiros'), states={'draft': [('readonly', False)]})
+    
     cliente_id = fields.Many2one("res.partner", "Cliente", required=True, states={'draft': [('readonly', False)]})
     fecha = fields.Date("Fecha de retiro", required=True, states={'draft': [('readonly', False)]})
     monto_retiro = fields.Float("Monto de retiro", required=True, states={'draft': [('readonly', False)]})
@@ -34,7 +35,8 @@ class Retiros(models.Model):
         ], string='Estado', index=True, default='draft')
     move_id = fields.Many2one('account.move', 'Asiento Contable', ondelete='restrict', readonly=True)
     journal_id = fields.Many2one("account.journal", "Metodo de pago", required=True, domain=[('type', 'in', ['bank', 'cash'])])
-    total_disponible = fields.Float("Total disponible", compute=get_saldo)
+    total_disponible = fields.Float("Total disponible", compute='get_saldo')
+
 
     @api.multi
     def action_ingresar(self):
