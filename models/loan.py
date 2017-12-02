@@ -92,8 +92,8 @@ class Loan(models.Model):
     currency_id = fields.Many2one("res.currency", "Moneda", default=lambda self: self.env.user.company_id.currency_id)
     # Parametros
     plazo_pago = fields.Integer("Plazo de pago", required=True, states={'cotizacion': [('readonly', False)]})
-    periodo_plazo_pago = fields.Selection([('dias', 'Días'), ('meses', 'Meses')], string='Periodo', default='meses', required=True)
-    tasa_interes = fields.Float("Tasa de interes", required=True)
+    periodo_plazo_pago = fields.Selection([('dias', 'Diario'), ('quincenal', 'Quincenal'),  ('meses', 'Mensual')], string='Periodo', default='meses', required=True)
+    tasa_interes = fields.Float("Tasa de interes Anual", required=True)
     notas = fields.Text("Notas")
     state = fields.Selection([('cotizacion', 'Cotizacion'), ('progress', 'Esperando Aprobacion'), ('rechazado', 'Rechazado'), ('aprobado', 'Aprobado'),
         ('desembolso', 'En desembolso'), ('progreso', 'En progreso'), ('liquidado', 'Liquidado')], string='Estado de prestamo',  readonly=True, default='cotizacion')
@@ -295,7 +295,12 @@ class Loan(models.Model):
         monto_solicitado = self.monto_solicitado + self.saldo_prestamo_anterior
 
         if self.tipo_prestamo_id.tasa_interes_id.capitalizable == 'anual':
-            rate_monthly = (self.tasa_interes / 12.0) / 100.0
+            if self.periodo_plazo_pago ==  'meses':
+                rate_monthly = (self.tasa_interes / 12.0) / 100.0
+            if self.periodo_plazo_pago == 'quincenal':
+                rate_monthly = (self.tasa_interes / 24.0) / 100.0
+            if self.periodo_plazo_pago == 'dias':
+                rate_monthly = (self.tasa_interes / 365) / 100.0
             annuity_factor = (rate_monthly * ((1 + rate_monthly) ** self.plazo_pago)) / (((1 + rate_monthly) ** self.plazo_pago) - 1)
             self.cuato_prestamo = monto_solicitado * annuity_factor
         else:

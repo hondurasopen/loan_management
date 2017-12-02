@@ -8,7 +8,7 @@
  <field name="arch" type="xml">
   <form string="Cuotas de Prestamo">
 	  <header>
-			<button name="action_pagar" type="object" string="Pagar Cuotas(Temporal)" states="cotizacion,novigente,vigente,morosa" class="oe_highlight"/>
+		
 			<field name="state" widget="statusbar" nolabel="1"/>
     </header>		
     <sheet> 

@@ -197,7 +197,8 @@
             <field name="model">loan.pagos</field>
             <field name="arch" type="xml">
                 <tree string="Resumen" delete="0" create="0" colors="red:state =='cancelado';green:state == 'done'; blue:state == 'borrador'">
-                    <field name="cliente_id" readonly="1"/>
+			<field name="name" readonly="1"/>            
+			<field name="cliente_id" readonly="1"/>
             <field name="fecha" readonly="1"/>
             <field name="importe_pagado" readonly="1" sum="Total"/>
             <field name="cuotas" readonly="1"/>
@@ -206,14 +207,53 @@
             <field name="observaciones" readonly="1"/>
                 </tree>
             </field>
-        </record>
+    </record>
+
+
+    <record model="ir.ui.view" id="loan_pagos_form_view">
+        <field name="name">loan.pagos.form</field>
+        <field name="model">loan.pagos</field>
+        <field name="arch" type="xml">
+        <form string="Pago de Cuotas">
+         <header>
+            <button name="cancelar_pago" type="object" string="Reversar Pago" states="done" class="oe_highlight"/>
+            <field name="state" widget="statusbar" nolabel="1"/>
+        </header>
+         <sheet>               
+         <group>
+                    <group>
+                        <field name="name" />
+                        <field name="cliente_id"  attrs="{'readonly': [('state','=','done')]}"/>
+                        <field name="importe_pagado" attrs="{'readonly': [('state','=','done')]}"/>
+                    </group>
+                    <group>
+                        <field name="fecha" attrs="{'readonly': [('state','=','done')]}"/>
+                         <field name="asiento_id" attrs="{'readonly': [('state','=','done')]}"/>
+                     </group>
+                </group>
+                <field name="observaciones"/>
+        
+            
+                        
+   <notebook colspan="4">  
+    <page string="Pago de cuotas">
+        <separator string="Cuotas"/>    
+        <field name="cuotas"/>
+     
+    </page> 
+    </notebook>
+           
+    </sheet>
+    </form>
+    </field>
+    </record>
 
 
      <record id="action_loan_forecast_pagos" model="ir.actions.act_window">
             <field name="name">Reporte de pagos</field>
             <field name="res_model">loan.pagos</field>
             <field name="view_type">form</field>
-            <field name="view_mode">tree,graph</field>
+            <field name="view_mode">tree,form,graph</field>
             <field name="help">Reporte de pagos</field>
     </record>
 

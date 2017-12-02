@@ -2,16 +2,16 @@
 <odoo>
    <data>
 
-    <record id="view_loan_management_calendar" model="ir.ui.view">
-            <field name="name">loan.management.loan.calendar</field>
-            <field name="model">loan.management.loan</field>
-            <field name="arch" type="xml">
-                <calendar string="Prestamos" color="afiliado_id" date_start="fecha_solicitud">
-                    <field name="afiliado_id"/>
-                    <field name="monto_solicitado"/>
-                </calendar>
-            </field>
-        </record>
+   <record id="view_loan_management_calendar" model="ir.ui.view">
+      <field name="name">loan.management.loan.calendar</field>
+      <field name="model">loan.management.loan</field>
+      <field name="arch" type="xml">
+        <calendar string="Prestamos" color="afiliado_id" date_start="fecha_solicitud">
+            <field name="afiliado_id"/>
+            <field name="monto_solicitado"/>
+        </calendar>
+      </field>
+  </record>
 
     <record model="ir.ui.view" id="loan_management_loan_search">
        <field name="name">loan.management.loan.search</field>
@@ -42,62 +42,62 @@
       </field>
   </record>
   <!-- Vista Formulario Presamo-->
-   <record model="ir.ui.view" id="loan_management_loan_form_view">
-   <field name="name">loan.management.loan.form</field>
-   <field name="model">loan.management.loan</field>
-   <field name="arch" type="xml">
-     <form string="Solicitud de prestamo">
-         <header>
-   <button name="action_borrador" type="object" string="Cotizacion" states="rechazado,progress"  class="oe_highlight"/>  
-  <button name="action_rechazar" type="object" string="Rechazar prestamo" groups="loan_management.group_aprobar_prestamos" states="cotizacion,aprobado,progress,desembolso" />
-  <button name="action_solicitar_aprobacion"  type="object" string="Solicitar aprobacion" states="cotizacion" class="oe_highlight"/>
-  <button name="action_aprobar" type="object" string="Aprobar prestamo" groups="loan_management.group_aprobar_prestamos" states="progress" class="oe_highlight"/>
-    <button name="action_desembolso" type="object" string="Realizar desembolso" states="aprobado" class="oe_highlight"/>
-    <button name="generar_contabilidad" type="object" string="Establecer prestamo como vigente" states="desembolso" class="oe_highlight"/>
-    <button name="%(action_wizard_pago_cuota_prestamo)d" type="action" string="Pagar Cuotas" states="progreso" class="oe_highlight"/>
-    <button name="adelantar_cuotas" type="object" string="Adelantar Cuota" states="progreso" groups="loan_management.group_adelantar_cuotas" class="oe_highlight"/>
+  <record model="ir.ui.view" id="loan_management_loan_form_view">
+  <field name="name">loan.management.loan.form</field>
+  <field name="model">loan.management.loan</field>
+  <field name="arch" type="xml">
+  <form string="Solicitud de prestamo">
+  <header>
+      <button name="action_borrador" type="object" string="Cotizacion" states="rechazado,progress"  class="oe_highlight"/>  
+      <button name="action_rechazar" type="object" string="Rechazar prestamo" groups="loan_management.group_aprobar_prestamos" states="cotizacion,aprobado,progress,desembolso" />
+      <button name="action_solicitar_aprobacion"  type="object" string="Solicitar aprobacion" states="cotizacion" class="oe_highlight"/>
+      <button name="action_aprobar" type="object" string="Aprobar prestamo" groups="loan_management.group_aprobar_prestamos" states="progress" class="oe_highlight"/>
+      <button name="action_desembolso" type="object" string="Realizar desembolso" states="aprobado" class="oe_highlight"/>
+      <button name="generar_contabilidad" type="object" string="Establecer prestamo como vigente" states="desembolso" class="oe_highlight"/>
+      <button name="%(action_wizard_pago_cuota_prestamo)d" type="action" string="Pagar Cuotas" states="progreso" class="oe_highlight"/>
+      <button name="adelantar_cuotas" type="object" string="Adelantar Cuota" states="progreso" groups="loan_management.group_adelantar_cuotas" class="oe_highlight"/>
         <field name="state" widget="statusbar" nolabel="1"/>
-         </header>
-          <sheet>   
-           <h1>
-              <field name="name" placeholder="Numero de prestamo ..." class="oe_inline" attrs="{'readonly': [('state','!=','cotizacion')]}"/>
-          </h1>
-           <separator string="Información General"/>
-          <group colspan="4">
-               <group cols="2">   
+   </header>
+  <sheet>   
+  <h1>
+        <field name="name" placeholder="Numero de prestamo ..." class="oe_inline" attrs="{'readonly': [('state','!=','cotizacion')]}"/>
+  </h1>
+  <separator string="Información General"/>
+  <group colspan="4">
+    <group cols="2">   
                	<field name="afiliado_id" attrs="{'readonly': [('state','!=','cotizacion')]}"/>
                 <field name="currency_id" invisible="1"/>
                	<field name="fecha_solicitud" attrs="{'readonly': [('state','!=','cotizacion')]}"/>
                 <field name="fecha_aprobacion" attrs="{'required': [('state','in',['aprobado','desembolso'])]}"/> 
 <field name="prestamo_id" attrs="{'readonly': [('state','!=','cotizacion')], 'invisible': [('prestamo_refinanciado','=', False)], 'required': [('prestamo_refinanciado','=', True)]}" options="{'no_create': True}" domain="[('afiliado_id','=',afiliado_id), ('state', '=', 'progreso')]"/>
                	<field name="tipo_prestamo_id" attrs="{'readonly': [('state','!=','cotizacion')]}" options="{'no_create': True}" />
-          </group>
-          <group cols="2"> 
+    </group>
+    <group cols="2"> 
                 <field name="prestamo_refinanciado" invisible="1"/>
                	<field name="tasa_interes" attrs="{'readonly': [('state','!=','cotizacion')]}"/>
                 <field name="plazo_pago" attrs="{'readonly': [('state','!=','cotizacion')]}"/>
-                <field name="periodo_plazo_pago" readonly="1"/>
+                <field name="periodo_plazo_pago" />
                 <field name="monto_solicitado" attrs="{'readonly': [('state','!=','cotizacion')]}"/>
                 <field name="saldo_prestamo_anterior"  attrs="{'invisible': [('prestamo_refinanciado','=', False)], 'required': [('prestamo_refinanciado','=', True)], 'readonly': [('state','!=','cotizacion')]}"/>
                 <field name="currency_id" invisible="1"/>
-         </group>
-        </group>
-        <notebook>
-        <page string="Plan de pago">
-          <group colspan="4">
-            <group cols="2"> 
-                <field name="total_interes" readonly="1"/>
-                <field name="cuato_prestamo" readonly="1"/>
-            </group> 
-            <group cols="2"> 
-              <field name="mora_id" options="{'no_create': True}"  attrs="{'required': [('state','in',['aprobado','desembolso', 'progreso'])]}"/>
-            <field name="fecha_pago" attrs="{'readonly': [('state','in',['progreso','liquidado'])]}" />
-            <button name="get_generar_cuotas" class="oe_highlight" attrs="{'invisible': [('state','!=','cotizacion')]}"
+    </group>
+   </group>
+  <notebook>
+  <page string="Plan de pago">
+  <group colspan="4">
+    <group cols="2"> 
+          <field name="total_interes" readonly="1"/>
+          <field name="cuato_prestamo" readonly="1"/>
+    </group> 
+    <group cols="2"> 
+          <field name="mora_id" options="{'no_create': True}"  attrs="{'required': [('state','in',['aprobado','desembolso', 'progreso'])]}"/>
+          <field name="fecha_pago" attrs="{'readonly': [('state','in',['progreso','liquidado'])]}" />
+          <button name="get_generar_cuotas" class="oe_highlight" attrs="{'invisible': [('state','!=','cotizacion')]}"
                             string="Calcular plan de pago" type="object" />
-            <button name="%(action_wizard_pago_cuota_prestamo)d" class="oe_highlight" attrs="{'invisible': [('state','!=','progreso')]}"
+          <button name="%(action_wizard_pago_cuota_prestamo)d" class="oe_highlight" attrs="{'invisible': [('state','!=','progreso')]}"
        string="Pagar Cuotas" type="action"/>
-                </group>   
-               </group>       
+    </group>   
+  </group>       
                 <field name="cuota_ids">
                     <tree string="Plan de pago" editable="bottom" delete="0" colors="blue:state == 'novigente';green:state == 'vigente'; red:state == 'morosa'; gray:state == 'pagada'">
                         <field name="numero_cuota" />
@@ -114,7 +114,7 @@
                           <field name="currency_id" invisible="1"/>
                     </tree>
                 </field>
-          </page>
+  </page>
 		<!--<page string="Mora y Montos">
         <group colspan="4">
             <group cols="2">

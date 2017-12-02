@@ -49,8 +49,7 @@ class LoanInteres(models.Model):
 
     name = fields.Char("Nombre de Tasa")
     tasa_interes = fields.Float("Tasa de interes (%)", required=True)
-    capitalizable = fields.Selection([('quincenal', 'Quincenal'), ('mensual', 'Mensual'), ('anual', 'Anual')], 
-        string='Capitalizable', default='anual')
+    capitalizable = fields.Selection([('anual', 'Anual')], required=True, string='Capitalizable', default='anual')
     active = fields.Boolean(string="Activo", default=True)
 
     @api.model

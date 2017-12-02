@@ -18,6 +18,13 @@
         </record>
     </data>
 
+	<record id="seq_pago_comercial_type1" model="ir.sequence">
+            <field name="name">Pago ID</field>
+            <field name="code">pago</field>
+            <field name="prefix">Recibo. </field>
+            <field name="padding">5</field>
+    </record>
+
      <record model="ir.cron" id="cron_cuotas_prestamo">
         <field name="name">Cron de cuotas</field>
         <field name="interval_number">5</field>

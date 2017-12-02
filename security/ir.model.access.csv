@@ -11,5 +11,5 @@ model_loan_management_loan_mora_manager,loan.management.loan.mora,model_loan_man
 model_loan_pagos_manager,loan.pagos,model_loan_pagos,loan_management.group_management_prestamo,1,1,1,1
 model_loan_pagos_cuotas_manager,loan.pagos.cuotas,model_loan_pagos_cuotas,loan_management.group_management_prestamo,1,1,1,1
 model_loan_gastos_line_manager,loan.tipos.gastos.line,model_loan_tipos_gastos_line,loan_management.group_management_gastos,1,1,1,1
-model_loan_gastos_line_manager,loan.tipos.gastos,model_loan_tipos_gastos,loan_management.group_management_gastos,1,1,1,1
+model_loan_gastos_manager,loan.tipos.gastos,model_loan_tipos_gastos,loan_management.group_management_gastos,1,1,1,1
 model_loan_retiros_manager,loan.retiros,model_loan_retiros,loan_management.group_management_retiros,1,1,1,1

@@ -20,6 +20,7 @@
             <!--<separator string="Pago de Prestamo"/>-->
                 <group>
                     <group>
+						<field name="name" />
                         <field name="prestamo_id" required="1" attrs="{'readonly': [('state','=','pagada')]}"/>
                     </group>
                     <group>

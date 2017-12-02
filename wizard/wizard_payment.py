@@ -293,6 +293,7 @@ class WizardPagoCuotas(models.TransientModel):
             'importe_pagado': self.monto,
             'state': 'done',
             'observaciones': mensaje,
+            'name': self.name,
         }
         pago_id = obj_pago.create(values)
         if self.cuotas_ids and pago_id:
@@ -724,6 +725,7 @@ class WizardPagoCuotas(models.TransientModel):
         self._get_total()
 
 
+    name = fields.Char("No. Pago", required=True, readonly= True,default=lambda self: self.env['ir.sequence'].get('pago'))
     liquidar_capital = fields.Boolean("Liquidar Préstamo")
     capital_prestamo = fields.Float("Capital de Prestamo", readonly=True, related="prestamo_id.total_capital")
     saldo_pendiente_prestamo = fields.Float("Saldo de Préstamo", readonly=True, related="prestamo_id.saldo_pendiente")
