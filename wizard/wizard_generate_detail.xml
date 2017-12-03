@@ -16,20 +16,20 @@
     <!--<button name="set_cancelar" type="object" string="Cancelar Pago" states="pagada" class="oe_highlight"/>-->
      <field name="state" widget="statusbar" nolabel="1"/>
     </header>
-            <sheet>
+        <sheet>
             <!--<separator string="Pago de Prestamo"/>-->
-                <group>
-                    <group>
-						<field name="name" />
-                        <field name="prestamo_id" required="1" attrs="{'readonly': [('state','=','pagada')]}"/>
-                    </group>
-                    <group>
-                        <field name="date_payment" attrs="{'readonly': [('state','=','pagada')]}"/>
-                        <field name="capital_prestamo" attrs="{'invisible': [('state','!=','saldo')]}"/>
-                         <field name="saldo_pendiente_prestamo" invisible="1"/>
-                         <field name="liquidar_capital" />
-                     </group>
-                </group>
+        <group>
+            <group>
+					<field name="name" />
+                    <field name="prestamo_id" required="1" attrs="{'readonly': [('state','=','pagada')]}"/>
+            </group>
+            <group>
+                    <field name="date_payment" attrs="{'readonly': [('state','=','pagada')]}"/>
+                    <field name="capital_prestamo" attrs="{'invisible': [('state','!=','saldo')]}"/>
+                    <field name="saldo_pendiente_prestamo" invisible="1"/>
+                    <field name="liquidar_capital" />
+            </group>
+        </group>
             <separator string="Cuota a pagar"/>
             <group colspan="4">  
                 <group cols="2">
@@ -62,14 +62,19 @@
             <notebook>
                 <page string="Detalle de Saldos">
                     <field name="cuotas_ids">
-                    <tree readonly="1" create="0" delete="0">
+                    <tree readonly="1" create="0" delete="0" colors="red:state =='morosa';green:state == 'vigente'; blue:state == 'novigente'" editable="top">
                         <field name="numero_cuota"/>
                         <field name="fecha_pago" readonly="1"/>
                         <field name="monto_cuota" sum="Total" readonly="1"/>
+                        <field name="capital" sum="Total" readonly="1"/>
+                        <field name="interes" sum="Total" readonly="1"/>
                         <field name="mora" sum="Total" readonly="1"/>
                         <field name="saldo_pendiente" sum="Total" readonly="1"/>
                         <field name="state" readonly="1"/>
-                         <field name="currency_id" invisible="1"/> 
+                        <field name="currency_id" invisible="1"/> 
+                        <field name="reversar_interes"/>
+                        <field name="reversar_mora"/>
+                        <button name="update_saldo" class="oe_highlight" string="Reversar Interes" type="object" />
                     </tree>
                     </field>
                 </page>

@@ -193,6 +193,7 @@
      <page string="Pagos de Prestamo" attrs="{'invisible': [('state','in',['cotizacion', 'progress', 'rechazado', 'aprobado'])]}">
        <field name="pagos_ids">
         <tree string="Pagos de cuotas" editable="bottom" delete="0" create="0">
+            <field name="name" readonly="1"/>
             <field name="cliente_id" readonly="1"/>
             <field name="fecha" readonly="1"/>
             <field name="importe_pagado" readonly="1" sum="Total"/>

@@ -318,10 +318,12 @@ class WizardPagoCuotas(models.TransientModel):
             if self.monto == saldo_pago:
                 # Primera condición saldo en mora y sin cuotas vigentes
                 if self.saldo_mora == 0.0 and self.monto_vigente > 0:
-                    obj_cuota = self.env["loan.management.loan.cuota"].search([('prestamo_id', '=', self.prestamo_id.id), 
-                        ('numero_cuota', '=', self.numero_cuota)])
+                    #obj_cuota = self.env["loan.management.loan.cuota"].search([('prestamo_id', '=', self.prestamo_id.id), 
+                        #('numero_cuota', '=', self.numero_cuota)])
                     move_id = False
                     for cuota in self.cuotas_ids:
+                        obj_cuota = self.env["loan.management.loan.cuota"].search([('prestamo_id', '=', self.prestamo_id.id), 
+                        ('numero_cuota', '=', cuota.numero_cuota)])
                         cuota.saldo_pendiente = 0.0
                         cuota.monto_pago = self.monto
                         cuota.write({'state': 'pagada'})
@@ -345,7 +347,7 @@ class WizardPagoCuotas(models.TransientModel):
                     obj_cuota.saldo_pendiente = 0.0
                     if move_id:
                         self.fct_crearpago_prestamo("Pago de cuota(s)", move_id)
-
+                # Segunda condición  monto vigente  y saldo de mora mayor que cero
                 if self.saldo_mora > 0.0 and self.monto_vigente == 0.0:
                     monto_pagar = self.monto
                     interes = 0.0
@@ -640,6 +642,8 @@ class WizardPagoCuotas(models.TransientModel):
                         'fecha_pago': cuota.fecha_pago,
                         'monto_cuota': cuota.monto_cuota,
                         'mora': cuota.mora,
+                        'interes': cuota.interes,
+                        'capital': cuota.capital,
                         'saldo_pendiente': cuota.saldo_pendiente,
                         'state': cuota.state,
                     }
@@ -647,8 +651,7 @@ class WizardPagoCuotas(models.TransientModel):
                     saldo += cuota.saldo_pendiente
             self.write({'state': 'saldo'})
             self.has_revision_saldo = True
-            self.monto = saldo
-
+            #self.monto = saldo
 
     @api.one
     def liquidar_prestamo(self):
@@ -698,9 +701,6 @@ class WizardPagoCuotas(models.TransientModel):
             self.prestamo_id.saldo_pendiente = 0.0
             self.prestamo_id.write({'state': 'liquidado'})
             return lineas
-
-
-
 
     def _get_values(self):
         if self.cuotas_ids:
@@ -772,7 +772,9 @@ class WizardPagoCuotasLines(models.TransientModel):
     pago_cuota_id = fields.Many2one("loan.wizard.payment", "Pago")
     currency_id = fields.Many2one("res.currency", "Moneda", related="pago_cuota_id.currency_id")
     fecha_pago = fields.Date("Fecha de Pago")
-    monto_cuota = fields.Monetary("Monto de Cuota")
+    monto_cuota = fields.Monetary("Cuota")
+    interes = fields.Monetary("Interes")
+    capital = fields.Monetary("Capital")
     saldo_pendiente = fields.Monetary("Saldo de Pendiente")
     state = fields.Selection([('cotizacion', 'Cotizacion'), ('cancelada', 'Cancelada'), ('novigente', 'No vigente'), ('vigente', 'Vigente'),('morosa', 'Morosa'),('pagada', 'Pagada')], 
         readonly=True, string='Estado de cuota', default='cotizacion')
@@ -781,3 +783,16 @@ class WizardPagoCuotasLines(models.TransientModel):
     monto_pago = fields.Monetary("Monto Pagado")
     mora = fields.Monetary("Mora")
 
+    reversar_interes = fields.Monetary("Interes a reversar")
+    reversar_mora = fields.Monetary("Mora a reversar")
+
+    @api.one
+    def update_saldo(self):
+        if self.reversar_interes > 0.0 and not self.reversar_interes > self.interes:
+            self.saldo_pendiente = self.saldo_pendiente - self.reversar_interes
+        else:
+            raise Warning(_('El monto debe ser mayor que cero y menor que el interes establecido en cuota '))
+        if self.reversar_mora > 0.0 and not self.reversar_mora > self.interes:
+            self.saldo_pendiente = self.saldo_pendiente - self.reversar_mora
+        else:
+            raise Warning(_('El monto debe ser mayor que cero y menor que el mora establecido en cuota '))
