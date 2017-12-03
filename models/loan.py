@@ -645,8 +645,18 @@ class Loanline(models.Model):
     numero_cuota = fields.Integer("# de cuota", readonly=True)
     saldo_pendiente = fields.Monetary("Saldo de Cuota")
     monto_pagado = fields.Monetary("Monto Pagado")
+    pago_ids = fields.One2many("loan.management.loan.cuota.pago", "cuota_id", string="Pagos")
 
     @api.multi
     def action_pagar(self):
         self.write({'state': 'pagada'})
 
+
+class Loanlinepago(models.Model):
+    _name = "loan.management.loan.cuota.pago"
+    _rec_name = 'cuota_id'
+
+    cuota_id = fields.Many2one("loan.management.loan.cuota", "Cuota")
+    pago_id = fields.Many2one("loan.pagos", "Pago de cuota")
+    importe_pago_cuota = fields.Float("Monto Pagado")
+    fecha_pago = fields.Date("Fecha de Pago")

@@ -303,6 +303,15 @@ class WizardPagoCuotas(models.TransientModel):
                         ('numero_cuota', '=', cuota.numero_cuota)])
                 if cuota.monto_pago > 0.0:
                     dict_cuotas.append(obj_cuota.id)
+                    valores_pago_cuota = {
+                        'cuota_id': obj_cuota.id,
+                        'pago_id': pago_id.id,
+                        'importe_pago_cuota': cuota.monto_pago,
+                        'fecha_pago': self.date_payment,
+                    }
+                    obj_cuota_pago = self.env["loan.management.loan.cuota.pago"]
+                    cuota_line_pago = obj_cuota_pago.create(valores_pago_cuota)
+                    #obj_cuota.write({'pagos_ids': [(0, 0, valores_pago_cuota)]})
             pago_id.write({'cuotas': [(6, 0, dict_cuotas)]})
             if move_id:
                 pago_id.write({'asiento_id': move_id})
@@ -324,27 +333,27 @@ class WizardPagoCuotas(models.TransientModel):
                     for cuota in self.cuotas_ids:
                         obj_cuota = self.env["loan.management.loan.cuota"].search([('prestamo_id', '=', self.prestamo_id.id), 
                         ('numero_cuota', '=', cuota.numero_cuota)])
+                        cuota.monto_pago = cuota.saldo_pendiente
                         cuota.saldo_pendiente = 0.0
-                        cuota.monto_pago = self.monto
                         cuota.write({'state': 'pagada'})
                         obj_cuota.write({'state': 'pagada'})
-                        obj_cuota.monto_pagado += self.monto
-                    if obj_cuota.monto_cuota > obj_cuota.saldo_pendiente:
-                        interes_pagados = obj_cuota.monto_cuota - obj_cuota.saldo_pendiente
-                        capital = 0.0
-                        interes = 0.0
-                        if obj_cuota.interes > interes_pagados:
-                            interes = obj_cuota.interes - interes_pagados
-                            if self.monto > interes:
-                                capital = self.monto - interes
+                        obj_cuota.monto_pagado += obj_cuota.saldo_pendiente
+                        if obj_cuota.monto_cuota > obj_cuota.saldo_pendiente:
+                            interes_pagados = obj_cuota.monto_cuota - obj_cuota.saldo_pendiente
+                            capital = 0.0
+                            interes = 0.0
+                            if obj_cuota.interes > interes_pagados:
+                                interes = obj_cuota.interes - interes_pagados
+                                if self.monto > interes:
+                                    capital = self.monto - interes
+                                else:
+                                    interes = self.monto
                             else:
-                                interes = self.monto
+                                capital = self.monto
+                            move_id = self.generar_partida_contable(capital, interes, 0.0, obj_cuota.saldo_pendiente )
                         else:
-                            capital = self.monto
-                        move_id = self.generar_partida_contable(capital, interes, 0.0, self.monto)
-                    else:
-                        move_id = self.generar_partida_contable(obj_cuota.capital, obj_cuota.interes, 0.0, self.monto)
-                    obj_cuota.saldo_pendiente = 0.0
+                            move_id = self.generar_partida_contable(obj_cuota.capital, obj_cuota.interes, 0.0, obj_cuota.saldo_pendiente )
+                        obj_cuota.saldo_pendiente = 0.0
                     if move_id:
                         self.fct_crearpago_prestamo("Pago de cuota(s)", move_id)
                 # Segunda condición  monto vigente  y saldo de mora mayor que cero

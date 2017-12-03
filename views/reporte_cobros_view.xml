@@ -259,7 +259,7 @@
 
 
     <menuitem action="action_loan_forecast_pagos" id="menu_loan_pagos"
-            name="Pagos" parent="loan_management_reportes"/>
+            name="Pagos Realizados" parent="loan_cuota_management" sequence="200"/>
 
     </data>
 </openerp>

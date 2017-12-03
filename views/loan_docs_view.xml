@@ -49,7 +49,7 @@
    </field>
    </record>
    
-<menuitem id="loan_tipo_documento_main" name="Documentos de Prestamo" string="Documentos de Prestamo" parent="loan_management_main" sequence="20"/>
+<menuitem id="loan_tipo_documento_main" name="Documentos" string="Documentos de Prestamo" parent="loan_management_main" sequence="20"/>
 <menuitem string="Documentos" action="loan_management_tipo_documento_action" id="loan_tipo_documento" parent="loan_tipo_documento_main" sequence="4"/>
 
    </data>

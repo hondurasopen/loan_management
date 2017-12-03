@@ -7,21 +7,20 @@
  <field name="model">loan.management.loan.cuota</field>
  <field name="arch" type="xml">
   <form string="Cuotas de Prestamo">
-	  <header>
-		
+	<header>	
 			<field name="state" widget="statusbar" nolabel="1"/>
-    </header>		
-    <sheet> 
-    <separator string="Información General"/> 
-      <group colspan="4">
-        <group cols="2">   
+  </header>		
+  <sheet> 
+  <separator string="Información General"/> 
+    <group colspan="4">
+      <group cols="2">   
          	<field name="prestamo_id"/>
-        </group>
-        <group cols="2">
-          <field name="afiliado_id"/>
-       </group>
-       </group>	
-        <separator string="Información de Cuota"/>
+      </group>
+      <group cols="2">
+          <field name="afiliado_id" readonly="1"/>
+      </group>
+    </group>	
+    <separator string="Información de Cuota"/>
        <group colspan="4">
        <group cols="2">   
           <field name="saldo_pendiente"/>
@@ -36,6 +35,15 @@
       </group>
      </group> 
   <notebook>
+    <page string="Pagos de cuota">
+      <field name="pago_ids" readonly="1">
+        <tree>
+            <field name="pago_id" />
+            <field name="fecha_pago"/> 
+            <field name="importe_pago_cuota" />
+        </tree>
+      </field>
+    </page> 
     <page string="Notas">
       <field name="description" />
     </page> 
@@ -62,6 +70,7 @@
    <field name="model">loan.management.loan.cuota</field>
    <field name="arch" type="xml">
        <tree string="Tipo de Prestamos" create="0">
+          <field name="numero_cuota"/>
             <field name="fecha_pago" />
             	<field name="prestamo_id"/>         
                <field name="afiliado_id"/>
@@ -111,7 +120,7 @@
    <field name="name">Cuotas Pagadas</field>
    <field name="res_model">loan.management.loan.cuota</field>
    <field name="view_type">form</field>
-   <field name="view_mode">graph,form</field>
+   <field name="view_mode">graph,form,tree</field>
    <field name="domain">[('state','=','pagada')]</field>
    <field name="help" type="html">
    <p class="oe_view_nocontent_create">Crear cuotas de prestamo</p>
@@ -119,7 +128,7 @@
    </record>
    <!-- Fin de Action de Contratos -->
      <!--  Menu Principal de Prestamos-->
-      <menuitem id="loan_cuota_management" name="Cuota de Prestamos" string="Cuota de Prestamos" parent="loan_management_main" sequence="10"/>
+      <menuitem id="loan_cuota_management" name="Cuota y Pagos" string="Cuota de Prestamos" parent="loan_management_main" sequence="10"/>
    <menuitem string="Cuotas viegentes"  id="menu_cuota_prestamo" parent="loan_cuota_management" action="loan_management_loan_cuota_vigente_action" sequence="5"/>
     <menuitem string="Cuotas no vigentes"  id="menu_cuota_prestamo_no_vigente" parent="loan_cuota_management" action="loan_management_loan_cuota_novigenete_action"  sequence="10"/>
     

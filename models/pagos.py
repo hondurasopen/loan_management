@@ -26,22 +26,20 @@ class Aportaciones(models.Model):
         if self.cuotas:
             if len(self.cuotas) == 1:
                 self.cuotas.monto_pagado = self.cuotas.monto_pagado - self.importe_pagado
-                self.cuotas.state = 'novigente'
-                
-                self.write({'state': 'cancelado'})
-                for asiento in self.asiento_id:
-                    asiento.unlink()
-                self.observaciones = 'Pago anulado de prestamo'
+                self.cuotas.saldo_pendiente = self.monto_cuota
+                if not self.cuotas.state == 'vigente':
+                    self.cuotas.state = 'novigente'
+            else:
+                for cuota in self.cuotas:
+                    obj_cuota = self.env["loan.management.loan.cuota"].search([('prestamo_id', '=', self.prestamo_id.id), 
+                        ('numero_cuota', '=', cuota.numero_cuota)])
+                    obj_cuota.monto_pagado = obj_cuota.monto_pagado - obj_cuota.pago_ids.importe_pago_cuota
+                    obj_cuota.saldo_pendiente = obj_cuota.monto_cuota
+                    if not obj_cuota.state == 'vigente':
+                        obj_cuota.state = 'novigente'
 
-
-
-class Aportaciones(models.Model):
-    _name = "loan.pagos.cuotas" 
-    _rec_name = 'numero_cuota'
-
-    pago_id = fields.Many2one("loan.pagos", "Número de Pago")
-    monto_cuota = fields.Float("Monto de Cuota")
-    mora = fields.Float("Mora")
-    numero_cuota = fields.Integer("# de cuota", readonly=True)
-    saldo_pendiente = fields.Float("Saldo de Cuota")
+            self.write({'state': 'cancelado'})
+            for asiento in self.asiento_id:
+                asiento.unlink()
+            self.observaciones = 'Pago anulado de préstamo'
 

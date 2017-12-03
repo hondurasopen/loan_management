@@ -49,7 +49,7 @@
                 <group cols="2">
                     <field name="saldo_pago"/>
                     <field name="monto_vigente"/>
-                    <field name="numero_cuota" />
+                   <!-- <field name="numero_cuota" />-->
                     <field name="saldo_mora"/>
                     <!--<field name="cuotas_mora_num" widget="many2many_tags" options="{'no_create_edit': True}"/>-->
 

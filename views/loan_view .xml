@@ -60,7 +60,7 @@
    </header>
   <sheet>   
   <h1>
-        <field name="name" placeholder="Numero de prestamo ..." class="oe_inline" attrs="{'readonly': [('state','!=','cotizacion')]}"/>
+        <field name="name" placeholder="Numero de prestamo ..." class="oe_inline" readonly="1"/>
   </h1>
   <separator string="Información General"/>
   <group colspan="4">
@@ -76,7 +76,7 @@
                 <field name="prestamo_refinanciado" invisible="1"/>
                	<field name="tasa_interes" attrs="{'readonly': [('state','!=','cotizacion')]}"/>
                 <field name="plazo_pago" attrs="{'readonly': [('state','!=','cotizacion')]}"/>
-                <field name="periodo_plazo_pago" />
+                <field name="periodo_plazo_pago" attrs="{'readonly': [('state','!=','cotizacion')]}"/>
                 <field name="monto_solicitado" attrs="{'readonly': [('state','!=','cotizacion')]}"/>
                 <field name="saldo_prestamo_anterior"  attrs="{'invisible': [('prestamo_refinanciado','=', False)], 'required': [('prestamo_refinanciado','=', True)], 'readonly': [('state','!=','cotizacion')]}"/>
                 <field name="currency_id" invisible="1"/>
@@ -200,6 +200,7 @@
             <field name="cuotas" readonly="1"/>
             <field name="state" readonly="1"/> 
             <field name="asiento_id" readonly="1"/> 
+            <field name="state" readonly="1"/>
             <field name="observaciones" readonly="1"/>
         </tree>
         </field>

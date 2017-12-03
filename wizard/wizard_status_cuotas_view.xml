@@ -40,7 +40,7 @@
             <field name="target">new</field>
     </record>
 
-    <menuitem string="Generar Carte de Cobros"  id="menu_generar_cartera_cobros" parent="loan_cuota_management" action="action_wizard_status_cuotas"  sequence="20"/>
+    <menuitem string="Generar Carte de Cobros"  id="menu_generar_cartera_cobros" parent="loan_management_configuration" action="action_wizard_status_cuotas"  sequence="500"/>
      
 
 </data>
