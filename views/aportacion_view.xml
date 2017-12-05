@@ -4,7 +4,7 @@
         <record id="seq_loan_ahorro_type1" model="ir.sequence">
             <field name="name">Ahorro ID</field>
             <field name="code">ahorro</field>
-            <field name="prefix">Déposito. </field>
+            <field name="prefix">Aportación. </field>
             <field name="padding">5</field>
         </record>
     </data>

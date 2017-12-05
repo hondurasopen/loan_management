@@ -8,6 +8,10 @@ class Aportaciones(models.Model):
     _order = 'fecha asc'
     _inherit = ['mail.thread']
 
+    def get_currency(self):
+        return self.env.user.company_id.currency_id.id
+
+    currency_id = fields.Many2one("res.currency", "Moneda", domain=[('active', '=', True)], default=get_currency)
     name = fields.Char("Número de aportación", default=lambda self: self.env['ir.sequence'].get('ahorro'), states={'draft': [('readonly', False)]})
     cliente_id = fields.Many2one("res.partner", "Cliente", required=True, states={'draft': [('readonly', False)]})
     fecha = fields.Date("Fecha de aportación", required=True, states={'draft': [('readonly', False)]})

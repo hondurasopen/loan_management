@@ -220,7 +220,7 @@ class WizardPagoCuotas(models.TransientModel):
             cuota = round(cuota_dict["monto_cuota"], 2)
             capital_cuota = round(cuota_dict["capital"], 2)
             obj_cuota_payment = self.env["loan.wizard.payment.lines"]
-            resta_monto = 0
+            #resta_monto = 0
             vals = {
                 'numero_cuota': obj_cuota.numero_cuota,
                 'pago_cuota_id': self.id,
@@ -228,60 +228,31 @@ class WizardPagoCuotas(models.TransientModel):
                 'monto_cuota': obj_cuota.monto_cuota,
                 'mora': obj_cuota.mora,
             }
-            if saldo_cuota == cuota:
-                if monto_disponible > capital_cuota:
-                    resta_monto = monto_disponible - capital_cuota
-                    obj_cuota.write({'state': 'pagada'})
-                    obj_cuota.monto_pagado = capital_cuota
-                    vals["saldo_pendiente"] = 0
-                    vals["monto_pago"] = capital_cuota
-                    vals["state"] = obj_cuota.state
-                    obj_cuota.saldo_pendiente = 0
+            if monto_disponible > capital_cuota:
+                obj_cuota.write({'state': 'pagada'})
+                obj_cuota.monto_pagado = capital_cuota
+                vals["saldo_pendiente"] = 0
+                vals["monto_pago"] = capital_cuota
+                vals["state"] = obj_cuota.state
+                obj_cuota.saldo_pendiente = 0
 
-                if monto_disponible < capital_cuota:
-                    obj_cuota.saldo_pendiente = obj_cuota.saldo_pendiente - monto_disponible
-                    obj_cuota.monto_pagado += monto_disponible
-                    vals["saldo_pendiente"] = obj_cuota.saldo_pendiente
-                    vals["monto_pago"] = monto_disponible
-                    vals["state"] = obj_cuota.state
-                    resta_monto = 0
+            if monto_disponible < capital_cuota:
+                obj_cuota.saldo_pendiente = obj_cuota.saldo_pendiente - monto_disponible
+                obj_cuota.monto_pagado += monto_disponible
+                vals["saldo_pendiente"] = obj_cuota.saldo_pendiente
+                vals["monto_pago"] = monto_disponible
+                vals["state"] = obj_cuota.state
 
-                if monto_disponible == capital_cuota:
-                    obj_cuota.saldo_pendiente = 0
-                    obj_cuota.monto_pagado += obj_cuota.capital
-                    obj_cuota.write({'state': 'pagada'})
-                    vals["saldo_pendiente"] = obj_cuota.saldo_pendiente
-                    vals["monto_pago"] = obj_cuota.capital
-                    vals["state"] = obj_cuota.state
-                    resta_monto = 0
+            if monto_disponible == capital_cuota:
+                obj_cuota.saldo_pendiente = 0
+                obj_cuota.monto_pagado += obj_cuota.capital
+                obj_cuota.write({'state': 'pagada'})
+                vals["saldo_pendiente"] = obj_cuota.saldo_pendiente
+                vals["monto_pago"] = obj_cuota.capital
+                vals["state"] = obj_cuota.state
 
-            else:
-                abonos = (cuota - saldo_cuota) + monto_disponible
-                if abonos > capital_cuota:
-                    obj_cuota.saldo_pendiente = 0
-                    obj_cuota.write({'state': 'pagada'})
-                    obj_cuota.monto_pagado = capital_cuota
-                    vals["saldo_pendiente"] = obj_cuota.saldo_pendiente
-                    vals["monto_pago"] = obj_cuota.capital
-                    vals["state"] = obj_cuota.state
-                    resta_monto = abonos - monto_disponible
-                elif abonos > capital_cuota:
-                    obj_cuota.saldo_pendiente = obj_cuota.saldo_pendiente - monto_disponible
-                    obj_cuota.monto_pagado += monto_disponible
-                    vals["saldo_pendiente"] = obj_cuota.saldo_pendiente
-                    vals["monto_pago"] = monto_disponible
-                    vals["state"] = obj_cuota.state
-                    resta_monto = 0
-                else:
-                    obj_cuota.saldo_pendiente = 0
-                    obj_cuota.monto_pagado += capital_cuota
-                    obj_cuota.write({'state': 'pagada'})
-                    vals["saldo_pendiente"] = obj_cuota.saldo_pendiente
-                    vals["monto_pago"] = capital_cuota
-                    vals["state"] = obj_cuota.state
-                    resta_monto = 0
             id_cuota = obj_cuota_payment.create(vals)
-            monto_disponible = resta_monto
+            monto_disponible = monto_disponible - vals["monto_pago"]
 
     def fct_crearpago_prestamo(self, mensaje, move_id):
         # No posteando el abono a capítal
