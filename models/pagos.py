@@ -26,7 +26,7 @@ class Aportaciones(models.Model):
         if self.cuotas:
             if len(self.cuotas) == 1:
                 self.cuotas.monto_pagado = self.cuotas.monto_pagado - self.importe_pagado
-                self.cuotas.saldo_pendiente = self.monto_cuota
+                self.cuotas.saldo_pendiente = self.cuotas.monto_cuota
                 if not self.cuotas.state == 'vigente':
                     self.cuotas.state = 'novigente'
             else:

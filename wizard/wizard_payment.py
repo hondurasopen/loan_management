@@ -797,11 +797,12 @@ class WizardPagoCuotasLines(models.TransientModel):
 
     @api.one
     def update_saldo(self):
-        if self.reversar_interes > 0.0 and not self.reversar_interes > self.interes:
+        if self.reversar_interes < 0 or self.reversar_mora < 0:
+            raise Warning(_('Los montos de interes a reversar deben ser mayores que cero '))
+
+        if not self.reversar_interes > self.interes:
             self.saldo_pendiente = self.saldo_pendiente - self.reversar_interes
-        else:
-            raise Warning(_('El monto debe ser mayor que cero y menor que el interes establecido en cuota '))
-        if self.reversar_mora > 0.0 and not self.reversar_mora > self.interes:
+
+        if not self.reversar_mora > self.mora:
             self.saldo_pendiente = self.saldo_pendiente - self.reversar_mora
-        else:
-            raise Warning(_('El monto debe ser mayor que cero y menor que el mora establecido en cuota '))
+
