@@ -149,7 +149,7 @@
             <group cols="2">
               <field name="saldo_pendiente"/>
               <field name="mora_prestamo"/>
-        <field name="amount_total_text"/>
+        <field name="amount_total_text" invisible="1"/>
             </group>
         </group>
        </page>
@@ -201,6 +201,7 @@
             <field name="state" readonly="1"/> 
             <field name="asiento_id" readonly="1"/> 
             <field name="state" readonly="1"/>
+            <field name="journal_id" readonly="1"/>
             <field name="observaciones" readonly="1"/>
         </tree>
         </field>

@@ -20,6 +20,7 @@ class Aportaciones(models.Model):
     name = fields.Char("Número de pago")
     cuotas = fields.Many2many("loan.management.loan.cuota", string="Abono a Cuota(s)")
     asiento_id = fields.Many2one("account.move", "Asiento Contable")
+    journal_id = fields.Many2one("account.journal", "Diario", related="asiento_id.journal_id")
 
     @api.one
     def cancelar_pago(self):

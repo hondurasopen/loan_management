@@ -16,7 +16,7 @@ class Customer(models.Model):
                 else:
                     saldo_ahorros += line.monto_aportacion
         for rt in self.retiro_ids:
-            if line.state == 'done':
+            if rt.state == 'done':
                 retiros = rt.monto_retiro
         self.total_ahorros = saldo_ahorros
         self.total_aportaciones = saldo_aportaciones

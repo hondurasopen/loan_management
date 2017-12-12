@@ -91,14 +91,14 @@
          
     <table style="width:100%;">
       	<tr >
-		<td style="width:25%;"><strong>Afiliado:</strong>
+		<td style="width:15%;"><strong>Afiliado:</strong>
 		</td>
-		<td class="text-left" style="width:25%;">
+		<td class="text-left" style="width:35%;">
 	 		<span t-field="o.cliente_id.name" />
 		</td>
-		<td style="width:25%;"><strong>Monto de retiro:</strong>
+		<td style="width:15%;"><strong>Monto de retiro:</strong>
         </td>
-        <td class="text-left" style="width:25%;">
+        <td class="text-left" style="width:35%;">
             <span t-field="o.monto_retiro" t-field-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: &quot;o.currency_id&quot;}"/>
         </td>
 		</tr>

@@ -57,7 +57,7 @@
    </field> 
    </record>
    <!--  Accion para Prestamos -->
-   <record model="ir.actions.act_window" id="loan_retiros_action">
+   <record model="ir.actions.act_window" id="loan_retiros__action">
    <field name="name">Registro de Retiros</field>
    <field name="res_model">loan.retiros</field>
    <field name="view_type">form</field>
@@ -71,7 +71,7 @@
    <!-- Fin de Action de Contratos -->
      <!--  Menu Principal de Prestamos-->
 
-       <menuitem string="Retiros"  id="loan_retiros_management_action" parent="loan_aportaciones_management" action="loan_retiros_action"  sequence="50"/>
+       <menuitem string="Retiros"  id="loan_retiros_management_action" parent="loan_aportaciones_management" action="loan_retiros__action"  sequence="50"/>
     
    </data>
 </odoo>

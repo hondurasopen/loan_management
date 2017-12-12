@@ -12,7 +12,7 @@ class LoanType(models.Model):
     monto_maximo = fields.Float("Monto Maximo", help="Monto maximo para el prestamo", required=True)
     plazo_pago_id = fields.Many2one("loan.management.loan.plazo", "Plazo de tiempo", required=True)
     tasa_interes_id = fields.Many2one("loan.management.loan.interes", "Tasa de Interes", required=True)
-    metodo_calculo = fields.Selection([('cuotanivelada', 'Cuota Nivelada'), ('plana', 'Cuota Plana')], 
+    metodo_calculo = fields.Selection([('cuotanivelada', 'Cuota Nivelada'), ('plana', 'Cuota Plana'), ('insoluto', 'Saldos Insolutos')], 
         string='Metodo de Cálculo', default='cuotanivelada', required=True)
     cuenta_ingreso =  fields.Many2one('account.account', 'Cuenta de Ingresos')
     cuenta_intereses_mora =  fields.Many2one('account.account', 'Ganancias por Mora', required=True)
