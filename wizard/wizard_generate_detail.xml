@@ -72,9 +72,12 @@
                         <field name="saldo_pendiente" sum="Total" readonly="1"/>
                         <field name="state" readonly="1"/>
                         <field name="currency_id" invisible="1"/> 
-                        <field name="reversar_interes"/>
+						<field name="ocultar_button" invisible="1"/>
+                        <field name="reversar_interes" attrs="{'readonly': [('ocultar_button','=',True)]}"/>
                         <field name="reversar_mora"/>
-                        <button name="update_saldo" class="oe_highlight" string="Reversar Interes" type="object" />
+					
+                        <button name="update_saldo" class="oe_highlight" string="Reversar Interes" type="object" 
+						 attrs="{'invisible': [('ocultar_button','=',True)]}"	/>
                     </tree>
                     </field>
                 </page>

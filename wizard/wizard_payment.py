@@ -228,31 +228,57 @@ class WizardPagoCuotas(models.TransientModel):
                 'monto_cuota': obj_cuota.monto_cuota,
                 'mora': obj_cuota.mora,
             }
-            if monto_disponible > capital_cuota:
-                obj_cuota.write({'state': 'pagada'})
-                obj_cuota.monto_pagado = capital_cuota
-                vals["saldo_pendiente"] = 0
-                vals["monto_pago"] = capital_cuota
-                vals["state"] = obj_cuota.state
-                obj_cuota.saldo_pendiente = 0
+            if round(saldo_cuota, 2) == round(cuota, 2):
+                if monto_disponible > capital_cuota:
+                    obj_cuota.write({'state': 'pagada'})
+                    obj_cuota.monto_pagado = capital_cuota
+                    vals["saldo_pendiente"] = 0
+                    vals["monto_pago"] = capital_cuota # monto pagado
+                    vals["state"] = obj_cuota.state
+                    obj_cuota.saldo_pendiente = 0
 
-            if monto_disponible < capital_cuota:
-                obj_cuota.saldo_pendiente = obj_cuota.saldo_pendiente - monto_disponible
-                obj_cuota.monto_pagado += monto_disponible
-                vals["saldo_pendiente"] = obj_cuota.saldo_pendiente
-                vals["monto_pago"] = monto_disponible
-                vals["state"] = obj_cuota.state
+                if monto_disponible < capital_cuota:
+                    obj_cuota.saldo_pendiente = obj_cuota.saldo_pendiente - monto_disponible
+                    obj_cuota.monto_pagado += monto_disponible
+                    vals["saldo_pendiente"] = obj_cuota.saldo_pendiente
+                    vals["monto_pago"] = monto_disponible
+                    vals["state"] = obj_cuota.state
 
-            if monto_disponible == capital_cuota:
-                obj_cuota.saldo_pendiente = 0
-                obj_cuota.monto_pagado += obj_cuota.capital
-                obj_cuota.write({'state': 'pagada'})
-                vals["saldo_pendiente"] = obj_cuota.saldo_pendiente
-                vals["monto_pago"] = obj_cuota.capital
-                vals["state"] = obj_cuota.state
+                if monto_disponible == capital_cuota:
+                    obj_cuota.saldo_pendiente = 0
+                    obj_cuota.monto_pagado += obj_cuota.capital
+                    obj_cuota.write({'state': 'pagada'})
+                    vals["saldo_pendiente"] = obj_cuota.saldo_pendiente
+                    vals["monto_pago"] = obj_cuota.capital
+                    vals["state"] = obj_cuota.state
+
+            if round(saldo_cuota, 2) < round(cuota, 2):
+                if round(obj_cuota.monto_pagado, 2) + round(monto_disponible, 2) > round(obj_cuota.capital, 2):
+                    obj_cuota.write({'state': 'pagada'})
+                    vals["monto_pago"] = (obj_cuota.capital - obj_cuota.monto_pagado)
+                    obj_cuota.monto_pagado += vals["monto_pago"]
+                    vals["saldo_pendiente"] = 0
+                    vals["state"] = obj_cuota.state
+                    obj_cuota.saldo_pendiente = 0
+
+                if round(obj_cuota.monto_pagado, 2) + round(monto_disponible, 2) < round(obj_cuota.capital, 2):
+                    vals["state"] = obj_cuota.state
+                    obj_cuota.monto_pagado += monto_disponible
+                    obj_cuota.saldo_pendiente = obj_cuota.saldo_pendiente - monto_disponible
+                    vals["monto_pago"] = monto_disponible
+
+                if round(obj_cuota.monto_pagado, 2) + round(monto_disponible, 2) == round(obj_cuota.capital, 2):
+                    obj_cuota.write({'state': 'pagada'})
+                    obj_cuota.saldo_pendiente = 0
+                    vals["saldo_pendiente"] = obj_cuota.saldo_pendiente
+                    vals["state"] = obj_cuota.state
+                    obj_cuota.monto_pagado += monto_disponible
+                    vals["monto_pago"] = monto_disponible
 
             id_cuota = obj_cuota_payment.create(vals)
             monto_disponible = monto_disponible - vals["monto_pago"]
+
+
 
     def fct_crearpago_prestamo(self, mensaje, move_id):
         # No posteando el abono a capítal
@@ -308,7 +334,7 @@ class WizardPagoCuotas(models.TransientModel):
                         cuota.saldo_pendiente = 0.0
                         cuota.write({'state': 'pagada'})
                         obj_cuota.write({'state': 'pagada'})
-                        obj_cuota.monto_pagado += obj_cuota.saldo_pendiente
+                        obj_cuota.monto_pagado += cuota.monto_pago
                         if obj_cuota.monto_cuota > obj_cuota.saldo_pendiente:
                             interes_pagados = obj_cuota.monto_cuota - obj_cuota.saldo_pendiente
                             capital = 0.0
@@ -321,13 +347,14 @@ class WizardPagoCuotas(models.TransientModel):
                                     interes = self.monto
                             else:
                                 capital = self.monto
-                            move_id = self.generar_partida_contable(capital, interes, 0.0, obj_cuota.saldo_pendiente )
+                            move_id = self.generar_partida_contable(capital, cuota.interes - cuota.reversar_interes, 0.0, cuota.monto_pago )
                         else:
-                            move_id = self.generar_partida_contable(obj_cuota.capital, obj_cuota.interes, 0.0, obj_cuota.saldo_pendiente )
+    
+                            move_id = self.generar_partida_contable(obj_cuota.capital, round(cuota.interes - cuota.reversar_interes, 2), 0.0, cuota.monto_pago)
                         obj_cuota.saldo_pendiente = 0.0
                     if move_id:
                         self.fct_crearpago_prestamo("Pago de cuota(s)", move_id)
-                # Segunda condición  monto vigente  y saldo de mora mayor que cero
+                # Segunda condición  monto vigente  y saldo de mora mayor q)ue cero
                 if self.saldo_mora > 0.0 and self.monto_vigente == 0.0:
                     monto_pagar = self.monto
                     interes = 0.0
@@ -338,24 +365,25 @@ class WizardPagoCuotas(models.TransientModel):
                         ('numero_cuota', '=', cuota.numero_cuota)])
                         if obj_cuota.monto_cuota > obj_cuota.saldo_pendiente:
                             if obj_cuota.interes > obj_cuota.monto_pagado:
-                                interes = obj_cuota.interes - obj_cuota.monto_pagado
-                                mora = mora + (obj_cuota.mora)
+                                interes = obj_cuota.interes - obj_cuota.monto_pagado - cuota.reversar_interes
+                                mora = mora + (obj_cuota.mora) - cuota.reversar_mora
                                 capital = capital + (obj_cuota.capital)
                             else:
-                                mora = mora + obj_cuota.mora
+                                mora = mora + obj_cuota.mora - cuota.reversar_mora
                                 capital = capital + (obj_cuota.saldo_pendiente - obj_cuota.mora)
                         else:
-                            interes = interes + (obj_cuota.interes - obj_cuota.monto_pagado)
+                            interes = interes + (obj_cuota.interes - obj_cuota.monto_pagado) - cuota.reversar_interes
                             capital = capital + obj_cuota.capital
-                            mora = mora + obj_cuota.mora
+                            mora = mora + obj_cuota.mora - cuota.reversar_mora
                         obj_cuota.write({'state': 'pagada'})
-                        obj_cuota.monto_pagado += obj_cuota.saldo_pendiente
-                        obj_cuota.saldo_pendiente = 0.0
                         cuota.monto_pago = cuota.saldo_pendiente
+                        obj_cuota.monto_pagado += cuota.monto_pago#obj_cuota.saldo_pendiente
+                        obj_cuota.saldo_pendiente = 0.0
                         cuota.saldo_pendiente = 0.0
                         obj_cuota.mora = 0.0
                         cuota.write({'state': 'pagada'})
-                    move_id = self.generar_partida_contable(capital, interes, mora, self.monto)
+                   
+                    move_id = self.generar_partida_contable(round(capital, 2), round(interes, 2), round(mora, 2), self.monto)
                     if move_id:
                         self.fct_crearpago_prestamo("Pago de cuota(s)", move_id)
 
@@ -368,21 +396,21 @@ class WizardPagoCuotas(models.TransientModel):
                         ('numero_cuota', '=', cuota.numero_cuota)])
                         if obj_cuota.monto_cuota > obj_cuota.saldo_pendiente:
                             if obj_cuota.interes > obj_cuota.monto_pagado:
-                                interes = obj_cuota.interes - obj_cuota.monto_pagado
-                                mora = mora + (obj_cuota.mora)
+                                interes = obj_cuota.interes - obj_cuota.monto_pagado - cuota.reversar_interes
+                                mora = mora + (obj_cuota.mora) - cuota.reversar_mora
                                 capital = capital + (obj_cuota.capital)
                             else:
-                                mora = mora + obj_cuota.mora
+                                mora = mora + obj_cuota.mora - cuota.reversar_mora
                                 capital = capital + (obj_cuota.saldo_pendiente - obj_cuota.mora)
                         else:
-                            interes = interes + (obj_cuota.interes - obj_cuota.monto_pagado)
+                            interes = interes + (obj_cuota.interes - obj_cuota.monto_pagado) - cuota.reversar_interes
                             capital = capital + obj_cuota.capital
-                            mora = mora + obj_cuota.mora
+                            mora = mora + obj_cuota.mora - cuota.reversar_mora
                         cuota.monto_pago = cuota.saldo_pendiente
                         cuota.saldo_pendiente = 0.0
                         cuota.write({'state': 'pagada'})
                         obj_cuota.write({'state': 'pagada'})
-                        obj_cuota.monto_pagado += obj_cuota.saldo_pendiente
+                        obj_cuota.monto_pagado += cuota.saldo_pendiente #obj_cuota.saldo_pendiente
                         obj_cuota.saldo_pendiente = 0.0
                         obj_cuota.mora = 0.0
                     move_id = self.generar_partida_contable(capital, interes, mora, self.monto)
@@ -392,42 +420,45 @@ class WizardPagoCuotas(models.TransientModel):
             # Segunda Condición grande de monto a pagar es menor que el saldo
             if self.monto < saldo_pago:
                 if self.saldo_mora == 0.0 and self.monto_vigente > 0:
-                    obj_cuota = self.env["loan.management.loan.cuota"].search([('prestamo_id', '=', self.prestamo_id.id), 
-                        ('numero_cuota', '=', self.numero_cuota)])
+                    for cuota in self.cuotas_ids:
+                        obj_cuota = self.env["loan.management.loan.cuota"].search([('prestamo_id', '=', self.prestamo_id.id), 
+                        ('numero_cuota', '=', cuota.numero_cuota)])
                     # Primero se paga interes despues se paga capital
-                    move_id = False
-                    capital = 0.0
-                    interes = 0.0
-                    if obj_cuota.monto_cuota > obj_cuota.saldo_pendiente:
-                        interes_pagados = obj_cuota.monto_cuota - obj_cuota.saldo_pendiente
-                        if obj_cuota.interes > interes_pagados:
-                            interes = obj_cuota.interes - interes_pagados
-                            if self.monto > interes:
+                        move_id = False
+                        capital = 0.0
+                        interes = 0.0
+                        if obj_cuota.monto_cuota > obj_cuota.saldo_pendiente:
+                            interes_pagados = obj_cuota.monto_cuota - obj_cuota.saldo_pendiente
+                            if obj_cuota.interes > interes_pagados:
+                                interes = obj_cuota.interes - interes_pagados - cuota.reversar_interes
+                                if self.monto > interes:
+                                    capital = self.monto - interes
+                                else:
+                                    interes = self.monto - cuota.reversar_interes
+                            else:
+                                capital = self.monto
+                        else:
+                            if self.monto > obj_cuota.interes:
+                                interes = cuota.interes - cuota.reversar_interes
                                 capital = self.monto - interes
                             else:
-                                interes = self.monto
-                        else:
-                            capital = self.monto
-                    else:
-                        if self.monto > obj_cuota.interes:
-                            interes = obj_cuota.interes
-                            capital = self.monto - interes
-                        else:
-                            interes = self.monto
+                                interes = self.monto - cuota.reversar_interes
 
-                    move_id = self.generar_partida_contable(capital, interes, 0.0, self.monto)
-                    for cuota in self.cuotas_ids:
-                        cuota.saldo_pendiente = cuota.saldo_pendiente - self.monto
-                        cuota.monto_pago = self.monto
-                    obj_cuota.saldo_pendiente = obj_cuota.saldo_pendiente - self.monto
-                    obj_cuota.monto_pagado += self.monto
+                        move_id = self.generar_partida_contable(capital, interes, 0.0, self.monto)
+                        for cuota in self.cuotas_ids:
+                            cuota.saldo_pendiente = cuota.saldo_pendiente - self.monto
+                            cuota.monto_pago = self.monto
+                        obj_cuota.saldo_pendiente = obj_cuota.saldo_pendiente - self.monto
+                        obj_cuota.monto_pagado += self.monto
 
-                    if move_id:
-                        self.fct_crearpago_prestamo("Pago de cuota(s)", move_id)
+                        if move_id:
+                            self.fct_crearpago_prestamo("Pago de cuota(s)", move_id)
 
-                if self.saldo_mora > 0.0 and self.monto_vigente == 0.0:
+                if self.saldo_mora > 0.0 and round(self.monto_vigente == 0.0, 2):
                     cuota_dict = self.pagar_cuotasmorosas(self.monto)
-                    move_id = self.generar_partida_contable(cuota_dict["capital"], cuota_dict["interes"], cuota_dict["mora"], self.monto)
+                    
+                    move_id = self.generar_partida_contable(cuota_dict["capital"], round(cuota_dict["interes"] -  cuota.reversar_interes, 2), 
+                    	round(cuota_dict["mora"] - cuota.reversar_mora, 2), round(self.monto, 2))
                     if move_id:
                         self.fct_crearpago_prestamo("Pago de cuota(s)", move_id)
 
@@ -441,10 +472,11 @@ class WizardPagoCuotas(models.TransientModel):
                         dict_values = self.pagar_cuotasmorosas(self.saldo_mora)
                         values = self.abono_cuotasvigentes(valor)
                         dict_values["capital"] = dict_values["capital"] + values["capital"]
-                        dict_values["interes"] = dict_values["interes"] + values["interes"]
+                        dict_values["interes"] = dict_values["interes"] + values["interes"] - - cuota.reversar_interes
                     else:
                         dict_values = self.pagar_cuotasmorosas(monto_disponible)
-                    move_id = self.generar_partida_contable(round(dict_values["capital"], 2), round(dict_values["interes"], 2), dict_values["mora"], self.monto)
+                    move_id = self.generar_partida_contable(round(dict_values["capital"], 2), round(dict_values["interes"] - cuota.reversar_interes, 2), 
+                    	dict_values["mora"] - cuota.reversar_mora, self.monto)
                     if move_id:
                         self.fct_crearpago_prestamo("Pago de cuota(s)", move_id)
 
@@ -626,7 +658,10 @@ class WizardPagoCuotas(models.TransientModel):
                         'capital': cuota.capital,
                         'saldo_pendiente': cuota.saldo_pendiente,
                         'state': cuota.state,
+                        'total_pagado': cuota.monto_pagado,
                     }
+                    if cuota.monto_pagado > cuota.interes and not cuota.state == 'morosa':
+                    	vals["ocultar_button"] = True
                     id_cuota = obj_cuota_payment.create(vals)
                     saldo += cuota.saldo_pendiente
             self.write({'state': 'saldo'})
@@ -762,18 +797,26 @@ class WizardPagoCuotasLines(models.TransientModel):
     numero_cuota = fields.Integer("# de cuota", readonly=True)
     monto_pago = fields.Monetary("Monto Pagado")
     mora = fields.Monetary("Mora")
+    total_pagado = fields.Monetary("Total Pagado")
 
     reversar_interes = fields.Monetary("Interes a reversar")
     reversar_mora = fields.Monetary("Mora a reversar")
+    ocultar_button = fields.Boolean("Reversar")
 
     @api.one
     def update_saldo(self):
         if self.reversar_interes < 0 or self.reversar_mora < 0:
             raise Warning(_('Los montos de interes a reversar deben ser mayores que cero '))
 
-        if not self.reversar_interes > self.interes:
+        if not self.reversar_interes > round(self.interes, 2) and self.reversar_interes > 0:
+            if self.total_pagado > self.interes:
+                raise Warning(_('No puede reversar intereses ya que fueron pagados'))
+
             self.saldo_pendiente = self.saldo_pendiente - self.reversar_interes
 
-        if not self.reversar_mora > self.mora:
-            self.saldo_pendiente = self.saldo_pendiente - self.reversar_mora
-
+        if not self.reversar_mora > round(self.mora, 2) and self.reversar_mora > 0:
+            if self.state == 'morosa':
+                self.saldo_pendiente = self.saldo_pendiente - self.reversar_mora
+            else:
+                 raise Warning(_('No se puede reversar mora, ya que no esta en mora la cuota'))
+        self.ocultar_button = True

@@ -203,19 +203,31 @@ class Loan(models.Model):
 
     @api.multi
     def adelantar_cuotas(self):
-        arreglo = []
-        for cuotas in self.cuota_ids:
+        #arreglo = []
+        #for cuotas in self.cuota_ids:
             #if cuotas.state == 'vigente' or cuotas.state == 'morosa':
                 #raise Warning(_('No puede establecer cuotas en vigente ya que ya existe una cuota vigente o cuota(s) morosa(s)'))
+            #if cuotas.state == 'novigente':
+                #arreglo.append(cuotas.numero_cuota)
+        #if arreglo:
+            #numero_cuota = (min(arreglo))
+            #obj_cuotas = self.env["loan.management.loan.cuota"].search([('prestamo_id', '=', self.id), ('numero_cuota', '=', numero_cuota), ('state', '=', 'novigente')])
+            #if obj_cuotas:
+                #obj_cuotas.write({'state': 'vigente'})
+        #else:
+             #raise Warning(_('No existen cuotas para establecer como vigente'))
+
+        arreglo = []
+        for cuotas in self.cuota_ids:
+            if cuotas.state == 'vigente' or cuotas.state == 'morosa':
+                raise Warning(_('No puede establecer cuotas en vigente ya que ya existe una cuota vigente o cuota(s) morosa(s)'))
             if cuotas.state == 'novigente':
                 arreglo.append(cuotas.numero_cuota)
-        if arreglo:
-            numero_cuota = (min(arreglo))
-            obj_cuotas = self.env["loan.management.loan.cuota"].search([('prestamo_id', '=', self.id), ('numero_cuota', '=', numero_cuota), ('state', '=', 'novigente')])
-            if obj_cuotas:
-                obj_cuotas.write({'state': 'vigente'})
-        else:
-             raise Warning(_('No existen cuotas para establecer como vigente'))
+        numero_cuota = (min(arreglo))
+        obj_cuotas = self.env["loan.management.loan.cuota"].search([('prestamo_id', '=', self.id), ('numero_cuota', '=', numero_cuota), ('state', '=', 'novigente')])
+        if obj_cuotas:
+            obj_cuotas.write({'state': 'vigente'})
+
 
     @api.multi
     def generar_contabilidad(self):

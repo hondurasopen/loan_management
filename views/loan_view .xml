@@ -166,6 +166,7 @@
           </group>   
           <group cols="2">  
               <field name="journal_id" attrs="{'readonly': [('state','!=','desembolso')], 'required': [('state','in',['desembolso', 'progreso', 'liquidado'])]}" options="{'no_create': True}" />
+              
               <field name="referencia_desembolso" attrs="{'readonly': [('state','!=','desembolso')], 'required': [('state','in',['desembolso', 'progreso', 'liquidado'])]}"/>
               <field name="move_id"/>
           </group>     
