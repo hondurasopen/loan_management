@@ -78,89 +78,97 @@ class WizardPagoCuotas(models.TransientModel):
             cuota_morosa_dict = self.get_primeracuotamora(self.prestamo_id.id)
             obj_cuota = self.env["loan.management.loan.cuota"].search([('prestamo_id', '=', self.prestamo_id.id), 
             ('numero_cuota', '=', cuota_morosa_dict["numero_cuota"])])
-            saldo_cuota = obj_cuota.saldo_pendiente
+            saldo_cuota = 0.0
             resta_monto = 0.0
-            if round(monto_disponible, 10) > round(saldo_cuota, 10):
-                obj_cuota.write({'state': 'pagada'})
-                for cuota in self.cuotas_ids:
-                    if cuota.numero_cuota == cuota_morosa_dict["numero_cuota"]:
+            for cuota in self.cuotas_ids:
+                if cuota.numero_cuota == cuota_morosa_dict["numero_cuota"]:
+                    saldo_cuota = cuota.saldo_pendiente
+                    if round(monto_disponible, 10) > round(saldo_cuota, 10):
+                        obj_cuota.write({'state': 'pagada'}) # solucionar problema de este estado
                         cuota.write({'state': 'pagada'})
                         cuota.monto_pago = cuota.saldo_pendiente
                         cuota.saldo_pendiente = 0.0
-                resta_monto = monto_disponible - saldo_cuota
-                if obj_cuota.interes > obj_cuota.monto_pagado:
-                    interes = interes + (obj_cuota.interes - obj_cuota.monto_pagado)
-                    capital = capital + obj_cuota.capital
-                else:
-                    capital = capital + (obj_cuota.capital - (obj_cuota.monto_pagado - obj_cuota.interes))
-                mora = mora + obj_cuota.mora
-                obj_cuota.mora = 0.0
-                obj_cuota.monto_pagado += obj_cuota.saldo_pendiente
-                obj_cuota.saldo_pendiente = 0
+                        if round(cuota.interes - cuota.reversar_interes, 2) > round(obj_cuota.monto_pagado, 2) and round(cuota.interes - cuota.reversar_interes, 2) > 0.0:
+                            interes = interes + (obj_cuota.interes - obj_cuota.monto_pagado - cuota.reversar_interes)
+                            capital = capital + obj_cuota.capital
+                        else: 
+                            capital = capital + (obj_cuota.capital - obj_cuota.monto_pagado)
+                        mora = mora + (obj_cuota.mora - cuota.reversar_mora)
+                        obj_cuota.mora = 0.0
+                        obj_cuota.monto_pagado += cuota.saldo_pendiente
+                        obj_cuota.saldo_pendiente = 0
+                        resta_monto = monto_disponible - saldo_cuota
+                        print "-" * 200
+                        print capital
+                        print "-" * 200
 
-            elif round(monto_disponible, 10) < round(saldo_cuota, 10):
-                if obj_cuota.interes > obj_cuota.monto_pagado:
-                    if monto_disponible > obj_cuota.interes:
-                        interes = interes + (obj_cuota.interes - obj_cuota.monto_pagado)
-                        disponible = monto_disponible - obj_cuota.interes
-                        if round(disponible, 10) > round(obj_cuota.mora, 10) and obj_cuota.mora > 0.0:
-                            mora = mora + obj_cuota.mora
-                            disponible = disponible - obj_cuota.mora
-                            capital = capital + disponible
-                            obj_cuota.mora = 0.0
+                    elif round(monto_disponible, 10) < round(saldo_cuota, 10):
+                        if round(cuota.interes - cuota.reversar_interes, 2) > round(obj_cuota.monto_pagado, 2) and not round(cuota.interes - cuota.reversar_interes, 2) == 0.0:
+                            if monto_disponible > round(cuota.interes - cuota.reversar_interes, 2) and not round(cuota.interes - cuota.reversar_interes, 2) == 0.0:
+                                interes = interes + (obj_cuota.interes - obj_cuota.monto_pagado - cuota.reversar_interes)
+                                disponible = monto_disponible - obj_cuota.interes - cuota.reversar_interes
+                                if round(disponible, 10) > round(obj_cuota.mora, 10) and obj_cuota.mora > 0.0:
+                                    mora = mora + obj_cuota.mora - cuota.reversar_mora
+                                    disponible = disponible - obj_cuota.mora -cuota.reversar_mora
+                                    capital = capital + disponible
+                                    obj_cuota.mora = 0.0
+                                else:
+                                    mora = mora + disponible - cuota.reversar_mora
+                                    obj_cuota.mora = obj_cuota.mora - disponible 
+                            else:
+                                interes = monto_disponible
                         else:
-                            mora = mora + disponible
-                            obj_cuota.mora = obj_cuota.mora - disponible
-                    else:
-                        interes = monto_disponible
-                else:
-                    if obj_cuota.mora > 0.0:
-                        if monto_disponible > obj_cuota.mora:
-                            mora = mora + obj_cuota.mora
-                            capital = monto_disponible - obj_cuota.mora
-                            obj_cuota.mora = 0.0
-                        else:
-                            mora = monto_disponible
-                            obj_cuota.mora = obj_cuota.mora - monto_disponible
-                    else:
-                        capital = capital + monto_disponible
+                            if obj_cuota.mora > 0.0:
+                                if monto_disponible > obj_cuota.mora:
+                                    mora = mora + obj_cuota.mora
+                                    capital = monto_disponible - obj_cuota.mora
+                                    obj_cuota.mora = 0.0
+                                else:
+                                    mora = monto_disponible
+                                    obj_cuota.mora = obj_cuota.mora - monto_disponible
+                            else:
+                                capital = capital + monto_disponible
 
-                resta_monto = 0
-                obj_cuota.monto_pagado += monto_disponible
-                obj_cuota.saldo_pendiente = obj_cuota.saldo_pendiente - monto_disponible
-                for cuota in self.cuotas_ids:
-                    if cuota.numero_cuota == cuota_morosa_dict["numero_cuota"]:
+                        resta_monto = 0
+                        obj_cuota.monto_pagado += monto_disponible
+                        obj_cuota.saldo_pendiente = cuota.saldo_pendiente - monto_disponible
                         cuota.saldo_pendiente = cuota.saldo_pendiente - monto_disponible
                         cuota.monto_pago = monto_disponible
-            else:
-                if obj_cuota.interes > obj_cuota.monto_pagado:
-                    interes = interes + (obj_cuota.interes - obj_cuota.monto_pagado)
-                    disponible = monto_disponible - obj_cuota.interes
-                    if round(disponible, 10) > round(obj_cuota.mora, 10) and obj_cuota.mora > 0.0:
-                        mora = mora + obj_cuota.mora
-                        disponible = disponible - obj_cuota.mora
-                        capital = capital + disponible
-                        obj_cuota.mora = 0.0
+                        print "2" * 200
                     else:
-                        mora = mora + disponible
-                        obj_cuota.mora = obj_cuota.mora - disponible
-                else:
-                    mora = mora + obj_cuota.mora
-                    capital = capital + (monto_disponible - obj_cuota.mora)
+                        if round(cuota.interes - cuota.reversar_mora, 2) > obj_cuota.monto_pagado and round(cuota.interes - cuota.reversar_mora, 2) > 0.0:
+                            interes = interes + (obj_cuota.interes - obj_cuota.monto_pagado - cuota.reversar_interes)
+                            disponible = monto_disponible - obj_cuota.interes - cuota.reversar_interes
+                            if round(disponible, 10) > round(obj_cuota.mora - cuota.reversar_mora, 10) and round(obj_cuota.mora - cuota.reversar_mora, 10) > 0.0:
+                                mora = mora + obj_cuota.mora - cuota.reversar_mora
+                                disponible = disponible - obj_cuota.mora - cuota.reversar_mora
+                                capital = capital + disponible
+                                obj_cuota.mora = 0.0
+                            else:
+                                mora = mora + disponible -cuota.reversar_mora
+                                obj_cuota.mora = obj_cuota.mora - disponible - cuota.reversar_mora
+                        else:
+                            mora = mora + obj_cuota.mora - cuota.reversar_mora
+                            capital = capital + (obj_cuota.capital - obj_cuota.mora - cuota.reversar_mora)
 
-                obj_cuota.write({'state': 'pagada'})
-                obj_cuota.monto_pagado += obj_cuota.saldo_pendiente
-                resta_monto = 0.0
-                for cuota in self.cuotas_ids:
-                    if cuota.numero_cuota == cuota_morosa_dict["numero_cuota"]:
+                        obj_cuota.write({'state': 'pagada'})
+                        obj_cuota.monto_pagado += cuota.saldo_pendiente
                         cuota.write({'state': 'pagada'})
-                        cuota.monto_pago = obj_cuota.saldo_pendiente
+                        cuota.monto_pago = cuota.saldo_pendiente
                         cuota.saldo_pendiente = 0.0
-                        resta_monto = 0
-                obj_cuota.mora = 0.0
-                obj_cuota.saldo_pendiente = 0.0
-
-            monto_disponible = resta_monto
+                        resta_monto = 0.0
+                        obj_cuota.mora = 0.0
+                        obj_cuota.saldo_pendiente = 0.0
+                        print "+" * 200
+                        print capital
+                        print "+" * 200
+                    monto_disponible = resta_monto
+                    break
+        print "*" * 200
+        print capital
+        print interes
+        print mora
+        print "*" * 200
         result["capital"] = capital
         result["interes"] = interes
         result["mora"] = mora
@@ -456,7 +464,6 @@ class WizardPagoCuotas(models.TransientModel):
 
                 if self.saldo_mora > 0.0 and round(self.monto_vigente == 0.0, 2):
                     cuota_dict = self.pagar_cuotasmorosas(self.monto)
-                    
                     move_id = self.generar_partida_contable(cuota_dict["capital"], round(cuota_dict["interes"] -  cuota.reversar_interes, 2), 
                     	round(cuota_dict["mora"] - cuota.reversar_mora, 2), round(self.monto, 2))
                     if move_id:
@@ -472,11 +479,10 @@ class WizardPagoCuotas(models.TransientModel):
                         dict_values = self.pagar_cuotasmorosas(self.saldo_mora)
                         values = self.abono_cuotasvigentes(valor)
                         dict_values["capital"] = dict_values["capital"] + values["capital"]
-                        dict_values["interes"] = dict_values["interes"] + values["interes"] - - cuota.reversar_interes
+                        dict_values["interes"] = dict_values["interes"] + values["interes"]
                     else:
                         dict_values = self.pagar_cuotasmorosas(monto_disponible)
-                    move_id = self.generar_partida_contable(round(dict_values["capital"], 2), round(dict_values["interes"] - cuota.reversar_interes, 2), 
-                    	dict_values["mora"] - cuota.reversar_mora, self.monto)
+                    move_id = self.generar_partida_contable(round(dict_values["capital"], 2), round(dict_values["interes"], 2), dict_values["mora"], self.monto)
                     if move_id:
                         self.fct_crearpago_prestamo("Pago de cuota(s)", move_id)
 
